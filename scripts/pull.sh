@@ -35,8 +35,5 @@ echo "Restoring i3 config..."
 safe_copy "$SCRIPTS_DIR/.config/i3/config" "$HOME/.config/i3/config" false
 safe_copy "$SCRIPTS_DIR/.config/i3status/config" "$HOME/.config/i3status/config" false
 
-echo "Restoring GEF config..."
-safe_copy "$SCRIPTS_DIR/.gef.rc" "$HOME/.gef.rc" true
-
 echo "All configs restored successfully!"
 

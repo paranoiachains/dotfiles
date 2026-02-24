@@ -35,8 +35,5 @@ echo "Pushing i3 config..."
 safe_push "$HOME/.config/i3/config" "$DOTFILES_DIR/.config/i3/config" false
 safe_push "$HOME/.config/i3status/config" "$DOTFILES_DIR/.config/i3status/config" false
 
-echo "Pushing GEF config..."
-safe_push "$HOME/.gef.rc" "$DOTFILES_DIR/.gef.rc" false
-
 echo "All configs pushed to dotfiles repo. You can now git add/commit/push."
 
