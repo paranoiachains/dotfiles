@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 safe_push() {
     local src="$1"
