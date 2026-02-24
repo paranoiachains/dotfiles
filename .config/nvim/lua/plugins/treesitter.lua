@@ -5,7 +5,19 @@ return {
 		event = "BufReadPost",
 		config = function()
 			require("nvim-treesitter.config").setup({
-				ensure_installed = { "lua", "rust", "go", "cpp", "bash", "json", "html", "c" },
+				ensure_installed = {
+					"lua",
+					"rust",
+					"go",
+					"cpp",
+					"bash",
+					"json",
+					"html",
+					"c",
+					"markdown",
+					"js",
+					"python",
+				},
 				highlight = { enable = true },
 				indent = { enable = true },
 				incremental_selection = {

@@ -28,11 +28,10 @@ vim.lsp.config("lua_ls", {
 	settings = { Lua = {} },
 })
 
--- Now this will respect the filetypes and root_markers defined above
 vim.lsp.enable("lua_ls")
 
 vim.lsp.config("rust_analyzer", {
-	cmd = { "rust-analyzer" }, -- or full path: "/home/you/.cargo/bin/rust-analyzer"
+	cmd = { "rust-analyzer" },
 	filetypes = { "rust" },
 
 	settings = {
@@ -67,34 +66,123 @@ vim.lsp.config("rust_analyzer", {
 
 vim.lsp.enable("rust_analyzer")
 
-vim.lsp.config("taplo", {
-	filetypes = { "toml" },
-})
-vim.lsp.enable("taplo")
+local function switch_source_header(bufnr, client)
+	local method = "textDocument/switchSourceHeader"
+	if not client or not client:supports_method(method) then
+		return vim.notify(method .. " not supported by clangd")
+	end
 
-vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostics under cursor" })
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
-vim.keymap.set("n", "grn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
-vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "[G]oto [D]efinition" })
-vim.keymap.set("n", "<C-k>", function()
-	vim.lsp.buf.signature_help()
-end, opts)
-vim.keymap.set("i", "<C-k>", function()
-	vim.lsp.buf.signature_help()
-end, opts)
+	local params = vim.lsp.util.make_text_document_params(bufnr)
+	client:request(method, params, function(err, result)
+		if err then
+			return vim.notify(tostring(err), vim.log.levels.ERROR)
+		end
+		if not result then
+			return vim.notify("Corresponding file not found")
+		end
+		vim.cmd.edit(vim.uri_to_fname(result))
+	end, bufnr)
+end
 
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "c", "cpp" },
-	callback = function(args)
-		vim.lsp.start({
-			name = "clangd",
-			cmd = { "clangd" },
-			root_dir = vim.fn.getcwd(), -- use current working dir as root
-			filetypes = { "c", "cpp" },
+local function symbol_info(bufnr, client)
+	local method = "textDocument/symbolInfo"
+	if not client or not client:supports_method(method) then
+		return vim.notify("Clangd client not found", vim.log.levels.ERROR)
+	end
+
+	local win = vim.api.nvim_get_current_win()
+	local params = vim.lsp.util.make_position_params(win, client.offset_encoding)
+
+	client:request(method, params, function(_, res)
+		if not res or #res == 0 then
+			return
+		end
+
+		local name = ("name: %s"):format(res[1].name)
+		local container = ("container: %s"):format(res[1].containerName)
+
+		vim.lsp.util.open_floating_preview({ name, container }, "", {
+			title = "Symbol Info",
+			focusable = false,
+		})
+	end, bufnr)
+end
+
+vim.lsp.config("clangd", {
+	cmd = {
+		"clangd",
+		"--background-index",
+		"--clang-tidy",
+		"--completion-style=detailed",
+		"--header-insertion=iwyu",
+		"--function-arg-placeholders",
+	},
+
+	filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+
+	root_markers = {
+		".clangd",
+		".clang-tidy",
+		".clang-format",
+		"compile_commands.json",
+		"compile_flags.txt",
+		"CMakeLists.txt",
+		"meson.build",
+		"configure.ac",
+		".git",
+	},
+
+	capabilities = {
+		textDocument = {
+			completion = {
+				editsNearCursor = true,
+			},
+		},
+		offsetEncoding = { "utf-8", "utf-16" },
+	},
+
+	on_init = function(client, init_result)
+		if init_result and init_result.offsetEncoding then
+			client.offset_encoding = init_result.offsetEncoding
+		end
+
+		local folders = client.workspace_folders
+		if not folders then
+			return
+		end
+
+		local path = folders[1].name
+		if vim.uv.fs_stat(path .. "/compile_commands.json") or vim.uv.fs_stat(path .. "/compile_flags.txt") then
+			return
+		end
+
+		client.config.settings = vim.tbl_deep_extend("force", client.config.settings or {}, {
+			clangd = {
+				fallbackFlags = {
+					"-std=c++20",
+					"-Wall",
+					"-Wextra",
+				},
+			},
 		})
 	end,
+
+	on_attach = function(client, bufnr)
+		vim.api.nvim_buf_create_user_command(bufnr, "LspClangdSwitchSourceHeader", function()
+			switch_source_header(bufnr, client)
+		end, { desc = "Switch between source/header" })
+
+		vim.api.nvim_buf_create_user_command(bufnr, "LspClangdShowSymbolInfo", function()
+			symbol_info(bufnr, client)
+		end, { desc = "Show clangd symbol info" })
+	end,
+
+	settings = {
+		clangd = {},
+	},
 })
+
+vim.lsp.enable("clangd")
 
 vim.lsp.config("pyright", {
 	cmd = { "pyright-langserver", "--stdio" },
@@ -103,7 +191,6 @@ vim.lsp.config("pyright", {
 		local folders = client.workspace_folders
 		if folders then
 			local path = folders[1].name
-			-- ignore if a config file exists in workspace
 			if
 				path ~= vim.fn.stdpath("config")
 				and (
@@ -131,35 +218,11 @@ vim.lsp.config("pyright", {
 
 vim.lsp.enable("pyright")
 
-local function load_schemastore()
-	local schemas_path = os.getenv("HOME") .. "/.local/share/nvim/schemastore/schemas.json"
-	local file = io.open(schemas_path, "r")
-
-	if not file then
-		vim.notify(
-			"Schemastore not found. Run: curl -o ~/.local/share/nvim/schemastore/schemas.json https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/api/json/catalog.json"
-		)
-		return {}
-	end
-
-	local content = file:read("*a")
-	file:close()
-
-	local ok, schemas = pcall(vim.json.decode, content)
-	if not ok then
-		vim.notify("Failed to parse schemastore JSON")
-		return {}
-	end
-
-	return schemas.schemas or {}
-end
-
 vim.lsp.config("jsonls", {
 	cmd = { "vscode-json-language-server", "--stdio" },
 	filetypes = { "json", "jsonc" },
 	settings = {
 		json = {
-			schemas = load_schemastore(),
 			validate = { enable = true },
 			format = { enable = true },
 		},
@@ -189,7 +252,6 @@ vim.lsp.config("tsserver", {
 		local folders = client.workspace_folders
 		if folders then
 			local path = folders[1].name
-			-- If a project-local config exists, respect it
 			if
 				path ~= vim.fn.stdpath("config")
 				and (vim.uv.fs_stat(path .. "/tsconfig.json") or vim.uv.fs_stat(path .. "/jsconfig.json"))

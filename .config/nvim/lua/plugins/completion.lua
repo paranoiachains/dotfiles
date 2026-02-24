@@ -5,7 +5,7 @@ return {
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			"saecki/crates.nvim",
-			"L3MON4D3/LuaSnip", -- for crates.nvim integration
+			"L3MON4D3/LuaSnip",
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -36,7 +36,7 @@ return {
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp", max_item_count = 8 },
-					{ name = "crates" }, -- minimal crates support
+					{ name = "crates" },
 				}),
 				sorting = {
 					priority_weight = 2,

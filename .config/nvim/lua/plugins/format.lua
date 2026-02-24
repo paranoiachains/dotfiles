@@ -4,23 +4,24 @@ return {
 		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },
 		opts = {
+			formatters = {
+				["clang-format"] = {
+					append_args = {
+						"--style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never}",
+					},
+				},
+			},
 			notify_on_error = false,
-			format_on_save = function(bufnr)
-				local disable_filetypes = { c = false, cpp = true }
-				if disable_filetypes[vim.bo[bufnr].filetype] then
-					return nil
-				else
-					return {
-						timeout_ms = 500,
-						lsp_format = "fallback",
-					}
-				end
-			end,
+			format_on_save = {
+				timeout_ms = 500,
+				lsp_format = "fallback",
+			},
 			formatters_by_ft = {
 				lua = { "stylua" },
 				go = { "goimports", "gofmt", "golangci-lint" },
 				rust = { "clippy" },
 				c = { "clang-format" },
+				cpp = { "clang-format" },
 				toml = { "taplo" },
 			},
 		},

@@ -40,34 +40,6 @@ return {
 
 			telescope.load_extension("fzf")
 			telescope.load_extension("file_browser")
-
-			local builtin = require("telescope.builtin")
-
-			vim.keymap.set("n", "<leader>fd", builtin.find_files, { desc = "Find files (project)" })
-			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep (project)" })
-			vim.keymap.set("n", "<leader>fe", builtin.buffers, { desc = "Find buffers" })
-
-			vim.keymap.set(
-				"n",
-				"<leader>fb",
-				telescope.extensions.file_browser.file_browser,
-				{ desc = "File browser (cwd)" }
-			)
-
-			vim.keymap.set("n", "<leader>;", function()
-				local line = vim.api.nvim_get_current_line()
-				if not line:match(";%s*$") then
-					vim.api.nvim_set_current_line(line .. ";")
-				end
-			end, { desc = "Append semicolon to current line" })
-
-			vim.keymap.set("n", "<leader>fn", function()
-				builtin.find_files({ cwd = vim.fn.stdpath("config") })
-			end, { desc = "Search Neovim files" })
-
-			vim.keymap.set("n", "<leader>ff", function()
-				builtin.find_files({ cwd = vim.fn.expand("%:p:h") })
-			end, { desc = "Find files (current dir)" })
 		end,
 	},
 }
