@@ -29,16 +29,34 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostics under cursor" })
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
 vim.keymap.set("n", "grn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
 vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "[G]oto [D]efinition" })
+vim.keymap.set("n", "gri", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation" })
 vim.keymap.set("n", "<C-k>", function()
 	vim.lsp.buf.signature_help()
 end, opts)
 vim.keymap.set("i", "<C-k>", function()
 	vim.lsp.buf.signature_help()
 end, opts)
+vim.keymap.set("n", "K", function()
+	vim.lsp.buf.hover({
+		border = "rounded",
+		max_width = 100,
+		max_height = 25,
+	})
+end)
+
+vim.keymap.set("n", "[d", function()
+	vim.diagnostic.jump({
+		count = 1,
+	})
+end, { desc = "Jump to next diagnostic" })
+
+vim.keymap.set("n", "[d", function()
+	vim.diagnostic.jump({
+		count = -1,
+	})
+end, { desc = "Jump to previous diagnostic" })
 
 -- telescope keymaps
 local telescope = require("telescope")
