@@ -26,7 +26,4 @@ instance = "Alacritty"
 history = 10000
 
 [keyboard]
-bindings = [
-  { key = "V", mods = "Control", action = "ToggleViMode" },
-  { key = "E", mods = "Shift", action = "FirstOccupied" },
-]
+bindings = [{ key = "V", mods = "Control", action = "ToggleViMode" }]
