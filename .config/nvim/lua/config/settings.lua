@@ -6,7 +6,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.wrap = false
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = "unnamed"
 vim.g.clipboard = "xclip"
 vim.o.breakindent = true
 vim.g.have_nerd_font = true
@@ -27,3 +27,12 @@ vim.o.confirm = true
 
 vim.api.nvim_set_hl(0, "@type.builtin", { link = "Type", bold = false })
 vim.api.nvim_set_hl(0, "@lsp.type.builtinType", { link = "Type", bold = false })
+
+vim.diagnostic.config({
+	float = {
+		border = "rounded",
+	},
+	jump = {
+		float = true,
+	},
+})
