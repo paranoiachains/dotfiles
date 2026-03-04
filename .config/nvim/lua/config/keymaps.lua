@@ -6,6 +6,8 @@ local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "E", "^", opts)
 vim.api.nvim_set_keymap("v", "E", "^", opts)
 
+vim.keymap.set({ "n", "v", "o" }, "$", "g_", { noremap = true })
+
 -- remove distraction
 vim.keymap.set("", "<Up>", "<Nop>", opts)
 vim.keymap.set("", "<Down>", "<Nop>", opts)
@@ -81,3 +83,16 @@ end, { desc = "Search Neovim files" })
 
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+vim.keymap.set("n", "<leader>t", "<cmd>ToggleTerm<CR><cmd><CR>", { desc = "Toggle terminal" })
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "cpp", "c" },
+	callback = function()
+		vim.keymap.set("n", "<leader>k", function()
+			local word = vim.fn.expand("<cword>")
+			vim.cmd("!cppman " .. word)
+		end, { buffer = true, desc = "cppman lookup" })
+	end,
+})
