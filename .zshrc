@@ -11,6 +11,7 @@ export PATH="$PATH:/home/keira/.local/bin"
 
 alias c='clear'
 alias pc='proxychains'
+alias e='exit'
 
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
