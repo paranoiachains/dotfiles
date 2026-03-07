@@ -1,16 +1,37 @@
 set $mod Mod4
 
-font pango:monospace 8
+font pango:FiraCode Nerd Font 12
+
+set $bg #1c1c25
+set $fg #CDCDCD
+
+default_border pixel 3
+default_floating_border pixel 3
+
+client.focused          #133f61 #133f61 #ffffff #133f61 #133f61
+client.unfocused        #1c1c25 #1c1c25 #888888 #1c1c25 #1c1c25
+client.focused_inactive #1c1c25 #1c1c25 #aaaaaa #1c1c25 #1c1c25
+client.urgent           #900000 #900000 #ffffff #900000 #900000
 
 bar {
     status_command i3status
     position bottom
     tray_output none
+
+    colors {
+            background $bg
+            statusline $fg
+            separator  $fg
+
+            focused_workspace  #133f61 #133f61 #ffffff
+            active_workspace   #133f61 #133f61 #ffffff
+            inactive_workspace #1c1c25 #1c1c25 #CDCDCD
+            urgent_workspace   #900000 #900000 #ffffff
+    }
 }
 
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xrandr --output Virtual-1 --mode 3840x2160 --rate 60
-
 
 exec --no-startup-id nm-applet
 
