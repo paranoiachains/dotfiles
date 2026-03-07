@@ -76,7 +76,7 @@ vim.lsp.config("lua_ls", {
 	settings = { Lua = {} },
 })
 
-vim.lsp.config("pyright", {
+vim.lsp.config("basedpyright", {
 	cmd = { "basedpyright-langserver", "--stdio" },
 	filetypes = { "python" },
 	on_init = function(client)
@@ -269,3 +269,9 @@ vim.lsp.config("clangd", {
 	},
 })
 vim.lsp.enable("clangd")
+vim.lsp.config("intelephense", {
+	cmd = { "intelephense", "--stdio" },
+	filetypes = { "php" },
+})
+
+vim.lsp.enable("intelephense")
