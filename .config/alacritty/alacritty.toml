@@ -26,4 +26,7 @@ instance = "Alacritty"
 history = 10000
 
 [keyboard]
-bindings = [{ key = "V", mods = "Control", action = "ToggleViMode" }]
+bindings = [{ key = "V", mods = "Alt", action = "ToggleViMode" }]
+
+[colors.primary]
+background = "#141414"
