@@ -178,32 +178,6 @@ if ! command -v rustup > /dev/null; then
 fi
 
 #--------------------------------------------------
-# Language Servers
-#--------------------------------------------------
-echo "Installing LSP servers..."
-
-if [ ! -d /opt/lua-language-server ]; then
-    TMP="$(mktemp -d)"
-    LUALS_VERSION="3.17.1"
-    curl -fL "https://github.com/LuaLS/lua-language-server/releases/download/$LUALS_VERSION/lua-language-server-$LUALS_VERSION-linux-$LUA_ARCH.tar.gz" \
-        -o "$TMP/lua.tar.gz"
-    sudo mkdir -p /opt/lua-language-server
-    sudo tar -xzf "$TMP/lua.tar.gz" -C /opt/lua-language-server
-    sudo ln -sf /opt/lua-language-server/bin/lua-language-server /usr/local/bin/lua-language-server
-    rm -rf "$TMP"
-fi
-
-if ! command -v rust-analyzer >/dev/null; then
-    TMP="$(mktemp)"
-    curl -fL https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-"$RUST_ARCH".gz  \
-        -o "$TMP"
-    chmod +x "$TMP"
-    sudo mv "$TMP" /usr/local/bin/rust-analyzer
-fi
-
-sudo npm install -g basedpyright vscode-langservers-extracted typescript typescript-language-server
-
-#--------------------------------------------------
 # Cleanup
 #--------------------------------------------------
 sudo apt autoremove -y
