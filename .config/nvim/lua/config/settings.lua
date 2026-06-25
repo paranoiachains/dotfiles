@@ -7,26 +7,24 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.wrap = false
 vim.opt.clipboard = "unnamed"
-vim.g.clipboard = "xclip"
-vim.o.breakindent = true
+vim.opt.breakindent = true
 vim.g.have_nerd_font = true
-vim.o.undofile = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.signcolumn = "yes"
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-vim.o.splitright = true
-vim.o.splitbelow = true
-vim.o.list = true
+vim.opt.undofile = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.signcolumn = "yes"
+vim.opt.updatetime = 250
+vim.opt.timeoutlen = 300
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-vim.o.inccommand = "split"
-vim.o.cursorline = true
-vim.o.scrolloff = 10
-vim.o.confirm = true
-
-vim.api.nvim_set_hl(0, "@type.builtin", { link = "Type", bold = false })
-vim.api.nvim_set_hl(0, "@lsp.type.builtinType", { link = "Type", bold = false })
+vim.opt.inccommand = "split"
+vim.opt.cursorline = true
+vim.opt.scrolloff = 10
+vim.opt.confirm = true
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 vim.diagnostic.config({
 	float = {

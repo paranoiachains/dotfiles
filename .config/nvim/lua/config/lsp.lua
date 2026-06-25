@@ -195,6 +195,9 @@ end
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if not client then
+			return vim.notify("Client is nil", vim.log.levels.ERROR)
+		end
 		if client.name == "clangd" then
 			local bufnr = args.buf
 			vim.keymap.set("n", "gs", switch_source_header, {
@@ -212,7 +215,7 @@ vim.lsp.config("clangd", {
 		"--clang-tidy",
 		"--completion-style=detailed",
 		"--header-insertion=iwyu",
-		"--function-arg-placeholders",
+		"--function-arg-placeholders=true",
 	},
 
 	filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
