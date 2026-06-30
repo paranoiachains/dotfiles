@@ -1,21 +1,17 @@
-require("nvim-treesitter.config").setup({
-	ensure_installed = {
-		"lua",
-		"vim",
-		"vimdoc",
-		"rust",
-		"go",
-		"c",
-		"cpp",
-		"python",
-		"typescript",
-	},
+require("nvim-treesitter").setup({})
 
-	highlight = {
-		enable = true,
-	},
+---install missing tresitter parsers
+---@param parsers string[]
+local function install_parsers(parsers)
+	for _, parser in ipairs(parsers) do
+		if not pcall(vim.treesitter.language.add, parser) then
+			vim.notify("Parser " .. parser .. "not found, installing...", vim.log.levels.WARN)
+			vim.cmd.TSInstallSync(parser)
+		end
+	end
+end
 
-	indent = {
-		enable = true,
-	},
+install_parsers({
+	"rust",
+	"python",
 })

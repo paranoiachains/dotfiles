@@ -1,0 +1,50 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+continuation_prompt = "[.](bright-black) "
+
+add_newline = false
+
+format = """
+$directory \
+$git_branch\
+$character
+"""
+
+[username]
+show_always = true
+format = "$user"
+
+[cmd_duration]
+disabled = true
+
+[character]
+success_symbol = "[>](bold white)"
+error_symbol = "[>](bold white)"
+vimcmd_symbol = "[<](white)"
+vimcmd_visual_symbol = "[<](white)"
+vimcmd_replace_symbol = "[<](white)"
+vimcmd_replace_one_symbol = "[<](white)"
+
+[directory]
+format = "$path"
+truncate_to_repo = true
+truncation_length = 0
+read_only = ""
+home_symbol = "~"
+repo_root_format = '[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) '
+
+[git_branch]
+symbol = "git:"
+truncation_symbol = "..."
+style = "bold white"
+
+[hostname]
+ssh_only = false
+format = "$hostname"
+trim_at = "."
+[status]
+symbol = "[x](bold red) "
+not_executable_symbol = "noexec"
+not_found_symbol = "notfound"
+sigint_symbol = "sigint"
+signal_symbol = "sig"

@@ -13,11 +13,7 @@ vim.pack.add({
 
 	gh("nvim-lualine/lualine.nvim"),
 
-	gh("nvim-treesitter/nvim-treesitter"),
-
-	gh("lewis6991/gitsigns.nvim"),
-
-	gh("vague2k/vague.nvim"),
+	gh("rebelot/kanagawa.nvim"),
 
 	gh("akinsho/toggleterm.nvim"),
 
@@ -34,8 +30,6 @@ require("config.plugins.mason")
 require("config.plugins.format")
 require("config.plugins.lualine")
 require("config.plugins.completion")
-require("config.plugins.treesitter")
-require("config.plugins.git")
 require("config.plugins.theme")
 require("config.plugins.terminal")
 require("config.plugins.telescope")

@@ -1,3 +1,14 @@
+vim.diagnostic.config({
+	float = {
+		border = "rounded",
+	},
+	jump = {
+		float = true,
+	},
+})
+
+vim.lsp.buf.signature_help({ border = "rounded" })
+
 vim.lsp.config("neocmake", {
 	cmd = { "neocmakelsp", "stdio" },
 	filetypes = { "cmake" },

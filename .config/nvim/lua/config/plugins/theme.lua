@@ -1,3 +1,3 @@
-require("vague").setup()
+require("kanagawa").setup()
 
-vim.cmd.colorscheme("vague")
+vim.cmd.colorscheme("kanagawa-dragon")

@@ -10,8 +10,8 @@ vim.keymap.set("n", "<leader>t", "<cmd>ToggleTerm<CR><cmd><CR>", { desc = "Toggl
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
 
 local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap("n", "E", "^", opts)
-vim.api.nvim_set_keymap("v", "E", "^", opts)
+vim.api.nvim_set_keymap("n", "#", "^", opts)
+vim.api.nvim_set_keymap("v", "#", "^", opts)
 
 vim.keymap.set({ "n", "v", "o" }, "$", "g_", { noremap = true })
 
@@ -44,8 +44,8 @@ vim.keymap.set("n", "grn", vim.lsp.buf.rename, { desc = "[R]e[n]ame" })
 vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "[G]oto [D]efinition" })
 vim.keymap.set("n", "gri", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation" })
 vim.keymap.set("n", "grr", vim.lsp.buf.references, { desc = "[G]oto [R]eferences" })
-vim.keymap.set("n", "<C-k>", function()
-	vim.lsp.buf.signature_help()
+vim.keymap.set({ "n", "i" }, "<C-k>", function()
+	vim.lsp.buf.signature_help({ border = "rounded" })
 end, opts)
 
 vim.keymap.set("n", "K", function()
