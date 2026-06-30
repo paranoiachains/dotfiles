@@ -1,1 +1,1 @@
-nvim, tmux, starship, bat, ghostty, 
+nvim, tmux, starship, bat, ghostty, fzf, zoxide
