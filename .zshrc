@@ -6,10 +6,6 @@ alias nfzf='nvim "$(fzf)"'
 alias n='nvim'
 alias lsa='ls -la'
 
-export PATH="$PATH:~/.local/bin"
-export VISUAL="nvim"
-export EDITOR="nvim"
-
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
