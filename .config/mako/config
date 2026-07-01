@@ -1,0 +1,26 @@
+font=JetBrainsMono Nerd Font 11
+
+background-color=#141415ff
+text-color=#cdcdcdff
+border-color=#252530ff
+border-size=1
+border-radius=6
+
+width=350
+height=120
+padding=14
+margin=12
+
+default-timeout=5000
+ignore-timeout=0
+
+anchor=top-right
+layer=overlay
+
+icons=0
+markup=1
+
+max-visible=5
+sort=-time
+
+progress-color=over #252530ff
