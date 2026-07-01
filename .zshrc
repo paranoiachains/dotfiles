@@ -6,6 +6,8 @@ alias nfzf='nvim "$(fzf)"'
 alias n='nvim'
 alias lsa='ls -la'
 
+bindkey -v
+
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
@@ -20,14 +22,22 @@ case "$(uname -s)" in
         ;;
 esac
 
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	command rm -f -- "$tmp"
+}
+
 typeset -A ZSH_HIGHLIGHT_STYLES
 
 # Default text
 ZSH_HIGHLIGHT_STYLES[default]="fg=#cdcdcd"
 
 # Valid commands
-ZSH_HIGHLIGHT_STYLES[command]="fg=#7e98e8"
-ZSH_HIGHLIGHT_STYLES[builtin]="fg=#aeaed1"
+ZSH_HIGHLIGHT_STYLES[command]="fg=#b4d4cf"
+ZSH_HIGHLIGHT_STYLES[builtin]="fg=#b4d4cf"
 ZSH_HIGHLIGHT_STYLES[alias]="fg=#b4d4cf"
 ZSH_HIGHLIGHT_STYLES[function]="fg=#7e98e8"
 ZSH_HIGHLIGHT_STYLES[hashed-command]="fg=#7e98e8"
