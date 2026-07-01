@@ -1,17 +1,13 @@
-require("nvim-treesitter").setup({})
+local M = {}
 
----install missing tresitter parsers
+---Install missing tresitter parsers
 ---@param parsers string[]
-local function install_parsers(parsers)
+function M.setup(parsers)
 	for _, parser in ipairs(parsers) do
 		if not pcall(vim.treesitter.language.add, parser) then
-			vim.notify("Parser " .. parser .. "not found, installing...", vim.log.levels.WARN)
-			vim.cmd.TSInstallSync(parser)
+			vim.notify("Parser " .. parser .. "not found", vim.log.levels.WARN)
 		end
 	end
 end
 
-install_parsers({
-	"rust",
-	"python",
-})
+return M

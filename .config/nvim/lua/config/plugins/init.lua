@@ -12,8 +12,7 @@ vim.pack.add({
 	gh("stevearc/conform.nvim"),
 
 	gh("nvim-lualine/lualine.nvim"),
-
-	gh("rebelot/kanagawa.nvim"),
+	gh("vague-theme/vague.nvim"),
 
 	gh("akinsho/toggleterm.nvim"),
 
@@ -34,3 +33,5 @@ require("config.plugins.theme")
 require("config.plugins.terminal")
 require("config.plugins.telescope")
 require("config.plugins.mini")
+require("config.plugins.treesitter").setup({ "rust", "markdown", "markdown_inline" })
+-- require("config.plugins.local")

@@ -20,34 +20,50 @@ case "$(uname -s)" in
         ;;
 esac
 
+typeset -A ZSH_HIGHLIGHT_STYLES
+
+# Default text
+ZSH_HIGHLIGHT_STYLES[default]="fg=#cdcdcd"
+
+# Valid commands
+ZSH_HIGHLIGHT_STYLES[command]="fg=#7e98e8"
+ZSH_HIGHLIGHT_STYLES[builtin]="fg=#aeaed1"
+ZSH_HIGHLIGHT_STYLES[alias]="fg=#b4d4cf"
+ZSH_HIGHLIGHT_STYLES[function]="fg=#7e98e8"
+ZSH_HIGHLIGHT_STYLES[hashed-command]="fg=#7e98e8"
+
+# Keywords
+ZSH_HIGHLIGHT_STYLES[reserved-word]="fg=#d8647e"
+ZSH_HIGHLIGHT_STYLES[precommand]="fg=#d8647e"
+
+# Variables & assignments
+ZSH_HIGHLIGHT_STYLES[assign]="fg=#bb9dbd"
+ZSH_HIGHLIGHT_STYLES[parameter]="fg=#e8b589"
+ZSH_HIGHLIGHT_STYLES[history-expansion]="fg=#e0a363"
+
+# Strings
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]="fg=#7fa563"
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]="fg=#7fa563"
+ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]="fg=#7fa563"
+
+# Options / paths / globs
+ZSH_HIGHLIGHT_STYLES[path]="fg=#90a0b5"
+ZSH_HIGHLIGHT_STYLES[path_prefix]="fg=#90a0b5"
+ZSH_HIGHLIGHT_STYLES[globbing]="fg=#e8b589"
+ZSH_HIGHLIGHT_STYLES[option]="fg=#aeaed1"
+
+# Numbers
+ZSH_HIGHLIGHT_STYLES[numeric-fd]="fg=#c48282"
+
+# Comments
+ZSH_HIGHLIGHT_STYLES[comment]="fg=#606079,italic"
+
+# Command separators
+ZSH_HIGHLIGHT_STYLES[commandseparator]="fg=#878787"
+
+# Errors
+ZSH_HIGHLIGHT_STYLES[unknown-token]="fg=#d8647e,bold"
+ZSH_HIGHLIGHT_STYLES[unknown-command]="fg=#d8647e,bold"
+
 source <(fzf --zsh)
 
-export FZF_DEFAULT_COMMAND='fd --hidden --strip-cwd-prefix --exclude .git'
-
-
-export FZF_DEFAULT_OPTS='
-  --height=60%
-  --layout=reverse
-  --border
-  --preview="bat --style=numbers --color=always {}"
-  --color=fg:#c5c9c5
-  --color=bg:#181616
-  --color=hl:#8ea4a2
-
-  --color=fg+:#c8c093
-  --color=bg+:#2d2a2e
-  --color=hl+:#7fb4ca
-
-  --color=info:#a6a69c
-  --color=prompt:#c4746e
-  --color=pointer:#c4b28a
-  --color=marker:#c4b28a
-  --color=spinner:#8ba4b0
-  --color=header:#8992a7
-
-  --color=border:#393836
-  --color=gutter:#181616
-  --color=separator:#393836
-  --color=label:#a6a69c
-  --color=query:#c5c9c5
-'

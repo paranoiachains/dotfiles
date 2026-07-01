@@ -12,10 +12,6 @@
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
     },
-    "gitsigns.nvim": {
-      "rev": "2038c666bd9d8a0b7349a0b6ee00dc83104b9ecf",
-      "src": "https://github.com/lewis6991/gitsigns.nvim"
-    },
     "kanagawa.nvim": {
       "rev": "bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3",
       "src": "https://github.com/rebelot/kanagawa.nvim"
@@ -68,13 +64,9 @@
       "rev": "9a88eae817ef395952e08650b3283726786fb5fb",
       "src": "https://github.com/akinsho/toggleterm.nvim"
     },
-    "tokyonight.nvim": {
-      "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
-      "src": "https://github.com/folke/tokyonight.nvim"
-    },
     "vague.nvim": {
       "rev": "49fe06ad33d8847b931ba4279197bda222374cd1",
-      "src": "https://github.com/vague2k/vague.nvim"
+      "src": "https://github.com/vague-theme/vague.nvim"
     }
   }
 }
