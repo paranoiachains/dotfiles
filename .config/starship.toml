@@ -5,7 +5,7 @@ continuation_prompt = "[.](bright-black) "
 add_newline = false
 
 format = """
-$directory \
+$directory\
 $git_branch\
 $character
 """
