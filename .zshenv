@@ -7,20 +7,26 @@ export FZF_DEFAULT_COMMAND='fd --hidden --strip-cwd-prefix --exclude .git'
 export FZF_DEFAULT_OPTS='
   --height=60%
   --layout=reverse
-  --border
   --preview="bat --style=numbers --color=always {}"
-  --color=fg:#cdcdcd
-  --color=bg:#141415
-  --color=hl:#f3be7c
-  --color=fg+:#aeaed1
-  --color=bg+:#252530
-  --color=hl+:#f3be7c
-  --color=border:#606079
-  --color=header:#6e94b2
-  --color=gutter:#141415
-  --color=spinner:#7fa563
-  --color=info:#f3be7c
-  --color=pointer:#aeaed1
-  --color=marker:#d8647e
-  --color=prompt:#bb9dbd
+  --highlight-line
+  --info=inline-right 
+  --ansi 
+  --border 
+  --color=bg+:#283457 
+  --color=bg:#16161e 
+  --color=border:#27a1b9 
+  --color=fg:#c0caf5 
+  --color=gutter:#16161e 
+  --color=header:#ff9e64 
+  --color=hl+:#2ac3de 
+  --color=hl:#2ac3de 
+  --color=info:#545c7e 
+  --color=marker:#ff007c 
+  --color=pointer:#ff007c 
+  --color=prompt:#2ac3de 
+  --color=query:#c0caf5:regular 
+  --color=scrollbar:#27a1b9 
+  --color=separator:#ff9e64 
+  --color=spinner:#ff007c 
 '
+export EZA_CONFIG_DIR="$HOME/.config/eza"
