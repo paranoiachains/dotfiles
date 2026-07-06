@@ -100,7 +100,7 @@ rules = [
     { mime = "application/{pdf,doc,rtf}", fg = "#7fa563" },
     { mime = "vfs/{absent,stale}", fg = "#606079" },
     { url = "*", fg = "#cdcdcd" },
-    { url = "*/", fg = "#405065" },
+    { url = "*/", fg = "#6e94b2" },
 ]
 
 
