@@ -12,7 +12,7 @@ vim.pack.add({
 	gh("stevearc/conform.nvim"),
 
 	gh("nvim-lualine/lualine.nvim"),
-	gh("vague-theme/vague.nvim"),
+	gh("folke/tokyonight.nvim"),
 
 	gh("akinsho/toggleterm.nvim"),
 

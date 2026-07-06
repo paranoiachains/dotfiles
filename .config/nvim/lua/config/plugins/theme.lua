@@ -1,3 +1,3 @@
-require("vague").setup()
+require("tokyonight").setup()
 
-vim.cmd.colorscheme("vague")
+vim.cmd.colorscheme("tokyonight-night")

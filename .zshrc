@@ -6,6 +6,7 @@ alias n='nvim'
 alias lsa='ls -la'
 
 bindkey -v
+KEYTIMEOUT=1
 
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
@@ -31,38 +32,45 @@ function y() {
 
 typeset -A ZSH_HIGHLIGHT_STYLES
 
-ZSH_HIGHLIGHT_STYLES[default]="fg=#cdcdcd"
+ZSH_HIGHLIGHT_STYLES[default]='fg=#c0caf5'
 
-ZSH_HIGHLIGHT_STYLES[command]="fg=#f3be7c"
-ZSH_HIGHLIGHT_STYLES[builtin]="fg=#f3be7c"
-ZSH_HIGHLIGHT_STYLES[alias]="fg=#f3be7c"
-ZSH_HIGHLIGHT_STYLES[function]="fg=#f3be7c"
-ZSH_HIGHLIGHT_STYLES[hashed-command]="fg=#f3be7c"
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#f7768e'
 
-ZSH_HIGHLIGHT_STYLES[reserved-word]="fg=#d8647e"
-ZSH_HIGHLIGHT_STYLES[precommand]="fg=#d8647e"
+ZSH_HIGHLIGHT_STYLES[command]='fg=#7aa2f7'
 
-ZSH_HIGHLIGHT_STYLES[assign]="fg=#bb9dbd"
-ZSH_HIGHLIGHT_STYLES[parameter]="fg=#e8b589"
-ZSH_HIGHLIGHT_STYLES[history-expansion]="fg=#e0a363"
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=#bb9af7'
 
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument]="fg=#7fa563"
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument]="fg=#7fa563"
-ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]="fg=#7fa563"
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#7dcfff'
 
-ZSH_HIGHLIGHT_STYLES[path]="fg=#90a0b5"
-ZSH_HIGHLIGHT_STYLES[path_prefix]="fg=#90a0b5"
-ZSH_HIGHLIGHT_STYLES[globbing]="fg=#e8b589"
-ZSH_HIGHLIGHT_STYLES[option]="fg=#aeaed1"
+ZSH_HIGHLIGHT_STYLES[function]='fg=#7dcfff'
 
-ZSH_HIGHLIGHT_STYLES[numeric-fd]="fg=#c48282"
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=#bb9af7'
 
-ZSH_HIGHLIGHT_STYLES[comment]="fg=#606079,italic"
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=#bb9af7'
 
-ZSH_HIGHLIGHT_STYLES[commandseparator]="fg=#878787"
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#e0af68'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#e0af68'
 
-ZSH_HIGHLIGHT_STYLES[unknown-token]="fg=#d8647e,bold"
-ZSH_HIGHLIGHT_STYLES[unknown-command]="fg=#d8647e,bold"
+ZSH_HIGHLIGHT_STYLES[path]='fg=#9ece6a'
+
+ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=#9ece6a'
+
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=#ff9e64'
+
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#9ece6a'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#9ece6a'
+
+ZSH_HIGHLIGHT_STYLES[numeric-glob]='fg=#e0af68'
+
+ZSH_HIGHLIGHT_STYLES[assign]='fg=#7dcfff'
+
+ZSH_HIGHLIGHT_STYLES[redirection]='fg=#f7768e'
+
+ZSH_HIGHLIGHT_STYLES[comment]='fg=#565f89'
+
+ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=#ff9e64'
+
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#f7768e'
 
 source <(fzf --zsh)
 
