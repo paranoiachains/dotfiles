@@ -1,4 +1,5 @@
 set $mod Mod4
+
 set $left h
 set $down j
 set $up k
@@ -6,12 +7,25 @@ set $right l
 
 set $term ghostty
 set $menu fuzzel
+set $browser firefox
 
-exec_always mako
+exec mako
 
-exec_always pkill waybar; waybar
+exec waybar
 
-output * bg #141415 solid_color
+# theme
+
+output * bg #1a1b26 solid_color
+
+client.focused          #73daca #73daca #c0caf5 #73daca #73daca
+client.focused_inactive #24283b #24283b #a9b1d6 #24283b #24283b
+client.unfocused        #1a1b26 #1a1b26 #565f89 #1a1b26 #1a1b26
+client.urgent           #f7768e #f7768e #c0caf5 #f7768e #f7768e
+client.placeholder      #1a1b26 #1a1b26 #565f89 #1a1b26 #1a1b26
+
+client.background       #1a1b26
+
+# display
 
 output DP-1 {
     mode 2560x1440@240Hz
@@ -32,13 +46,7 @@ input type:keyboard {
     repeat_rate 50
 }
 
-client.focused          #252530 #252530 #cdcdcd #252530 #252530
-client.focused_inactive #1c1c24 #1c1c24 #606079 #1c1c24 #1c1c24
-client.unfocused        #141415 #141415 #606079 #141415 #141415
-client.urgent           #3b242a #3b242a #d8647e #d8647e #3b242a
-client.placeholder      #141415 #141415 #606079 #141415 #141415
-
-client.background       #141415
+# main binds
 
 bindsym $mod+t exec $term
 
@@ -46,9 +54,13 @@ bindsym $mod+w kill
 
 bindsym $mod+d exec $menu
 
+bindsym $mod+b exec 
+
 floating_modifier $mod normal
 
 bindsym $mod+Shift+c reload
+
+# other binds
 
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 bindsym $mod+$left focus left
@@ -88,7 +100,10 @@ bindsym $mod+Shift+7 move container to workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
+bindsym $mod+Ctrl+Left  move workspace to output left
+bindsym $mod+Ctrl+Right move workspace to output right
 
+# opts
 
 mouse_warping none
 
@@ -104,8 +119,6 @@ workspace_auto_back_and_forth yes
 
 seat seat0 hide_cursor 5000
 
-output * adaptive_sync on
-
 for_window [app_id="firefox" title="Picture-in-Picture"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_type="dialog"] floating enable
@@ -115,5 +128,3 @@ set $screenshots ~/Pictures/Screenshots
 bindsym Print exec grimshot copy area 
 bindsym Shift+Print exec grimshot save area 
 bindsym Ctrl+Print exec grimshot save screen $screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png
-
-include /etc/sway/config.d/*
