@@ -1,8 +1,8 @@
 font=JetBrainsMono Nerd Font 11
 
-background-color=#141415ff
-text-color=#cdcdcdff
-border-color=#252530ff
+background-color=#1a1b26ff
+text-color=#c0caf5ff
+border-color=#73daca99
 border-size=1
 border-radius=6
 
@@ -23,4 +23,4 @@ markup=1
 max-visible=5
 sort=-time
 
-progress-color=over #252530ff
+progress-color=over #292e42ff
