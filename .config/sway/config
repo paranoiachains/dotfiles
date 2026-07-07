@@ -54,7 +54,7 @@ bindsym $mod+w kill
 
 bindsym $mod+d exec $menu
 
-bindsym $mod+b exec 
+bindsym $mod+b exec $firefox 
 
 floating_modifier $mod normal
 
