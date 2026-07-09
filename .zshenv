@@ -3,18 +3,28 @@ export PATH="$PATH:$HOME/.local/bin"
 export VISUAL="nvim"
 export EDITOR="nvim"
 export XDG_CONFIG_HOME="$HOME/.config"
-export FZF_DEFAULT_COMMAND='fd --hidden --strip-cwd-prefix --exclude .git'
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="
+--preview '
+bat --color=always --style=numbers --line-range=:500 {}
+'
+"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+export FZF_ALT_C_OPTS="
+--preview '
+eza --tree --level=2 --color=always {}
+'
+"
 export FZF_DEFAULT_OPTS='
-  --height=60%
   --layout=reverse
   --preview="bat --style=numbers --color=always {}"
   --highlight-line
   --info=inline-right 
   --ansi 
-  --border 
+  --border=none 
   --color=bg+:#283457 
   --color=bg:#16161e 
-  --color=border:#27a1b9 
   --color=fg:#c0caf5 
   --color=gutter:#16161e 
   --color=header:#ff9e64 

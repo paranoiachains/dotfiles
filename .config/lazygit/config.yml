@@ -6,7 +6,7 @@ gui:
   shortTimeFormat: "15:04"
   showRandomTip: false
   showFileTree: true
-  border: "rounded"
+  border: "single"
   scrollHeight: 2
   skipDiscardChangeWarning: false
   refreshRate: 10
