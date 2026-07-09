@@ -50,7 +50,7 @@ end, opts)
 
 vim.keymap.set("n", "K", function()
 	vim.lsp.buf.hover({
-		border = "rounded",
+		border = "solid",
 		max_width = 100,
 		max_height = 25,
 	})
