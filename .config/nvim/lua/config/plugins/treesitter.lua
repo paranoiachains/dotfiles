@@ -1,13 +1,7 @@
-local M = {}
+local ts = require("nvim-treesitter")
 
----Install missing tresitter parsers
----@param parsers string[]
-function M.setup(parsers)
-	for _, parser in ipairs(parsers) do
-		if not pcall(vim.treesitter.language.add, parser) then
-			vim.notify("Parser " .. parser .. "not found", vim.log.levels.WARN)
-		end
-	end
-end
+ts.setup({
+    install_dir = vim.fn.stdpath('data') .. '/site'
+})
 
-return M
+ts.install { 'rust', 'markdown', 'markdown_inline' }
