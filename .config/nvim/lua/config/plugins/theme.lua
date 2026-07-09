@@ -1,3 +1,9 @@
-require("tokyonight").setup()
+require("tokyonight").setup({
+    style = "night",
 
-vim.cmd.colorscheme("tokyonight-night")
+    on_colors = function(colors)
+        colors.terminal_black = ""
+    end,
+})
+
+vim.cmd.colorscheme("tokyonight")
