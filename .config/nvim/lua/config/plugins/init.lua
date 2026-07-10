@@ -11,7 +11,6 @@ vim.pack.add({
 
 	gh("stevearc/conform.nvim"),
 
-	gh("nvim-lualine/lualine.nvim"),
 	gh("folke/tokyonight.nvim"),
 	gh("nvim-treesitter/nvim-treesitter"),
 
@@ -28,7 +27,6 @@ vim.pack.add({
 
 require("config.plugins.mason")
 require("config.plugins.format")
-require("config.plugins.lualine")
 require("config.plugins.completion")
 require("config.plugins.theme")
 require("config.plugins.terminal")
