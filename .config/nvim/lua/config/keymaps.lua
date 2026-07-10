@@ -82,7 +82,17 @@ vim.api.nvim_create_autocmd("FileType", {
 local builtin = require("telescope.builtin")
 
 vim.keymap.set("n", "<leader>fd", builtin.find_files, { desc = "Find files (project)" })
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep (project)" })
+vim.keymap.set("n", "<leader>fg", function()
+	builtin.live_grep({
+		additional_args = function(_)
+			return {
+				"--hidden",
+				"--glob",
+				"!.git/*",
+			}
+		end,
+	})
+end, { desc = "Live grep (project)" })
 vim.keymap.set("n", "<leader>fe", builtin.buffers, { desc = "Find buffers" })
 vim.keymap.set("n", "<leader>fn", function()
 	builtin.find_files({ cwd = vim.fn.stdpath("config") })
