@@ -6,6 +6,8 @@ border-color=#73daca99
 border-size=1
 border-radius=6
 
+max-icon-size=24
+
 width=350
 height=120
 padding=14
@@ -17,7 +19,6 @@ ignore-timeout=0
 anchor=top-right
 layer=overlay
 
-icons=0
 markup=1
 
 max-visible=5
