@@ -15,12 +15,9 @@ window#waybar {
     border-bottom: 1px solid #24283b;
 }
 
-#workspaces {
-    margin-left: 8px;
-}
 
 #workspaces button {
-    padding: 0 10px;
+    padding: 0 3px;
     color: #565f89;
     background: transparent;
 
