@@ -1,7 +1,27 @@
 local ts = require("nvim-treesitter")
 
 ts.setup({
-    install_dir = vim.fn.stdpath('data') .. '/site'
+	install_dir = vim.fn.stdpath("data") .. "/site",
 })
 
-ts.install { 'rust', 'markdown', 'markdown_inline' }
+ts.install({
+	"rust",
+	"lua",
+	"vim",
+	"vimdoc",
+	"markdown",
+	"markdown_inline",
+	"query",
+	"toml",
+	"yaml",
+	"json",
+})
+
+local group = vim.api.nvim_create_augroup("treesitter", { clear = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = group,
+	callback = function(ev)
+		pcall(vim.treesitter.start, ev.buf)
+	end,
+})
