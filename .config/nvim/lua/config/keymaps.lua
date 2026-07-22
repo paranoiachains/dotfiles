@@ -10,8 +10,6 @@ vim.keymap.set("n", "<leader>t", "<cmd>ToggleTerm<CR><cmd><CR>", { desc = "Toggl
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
 
 local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap("n", "#", "^", opts)
-vim.api.nvim_set_keymap("v", "#", "^", opts)
 
 vim.keymap.set({ "n", "v", "o" }, "$", "g_", { noremap = true })
 
