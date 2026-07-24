@@ -14,8 +14,6 @@ vim.pack.add({
 	gh("folke/tokyonight.nvim"),
 	gh("nvim-treesitter/nvim-treesitter"),
 
-	gh("akinsho/toggleterm.nvim"),
-
 	gh("nvim-telescope/telescope.nvim"),
 	gh("nvim-lua/plenary.nvim"),
 	gh("nvim-telescope/telescope-fzf-native.nvim"),
@@ -29,7 +27,6 @@ require("config.plugins.mason")
 require("config.plugins.format")
 require("config.plugins.completion")
 require("config.plugins.theme")
-require("config.plugins.terminal")
 require("config.plugins.telescope")
 require("config.plugins.mini")
 require("config.plugins.treesitter")
