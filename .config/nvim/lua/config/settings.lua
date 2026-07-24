@@ -12,6 +12,7 @@ vim.g.have_nerd_font = true
 vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.winborder = "rounded"
 vim.opt.signcolumn = "yes"
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
@@ -32,12 +33,3 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.cmd.syntax("off")
-
-vim.diagnostic.config({
-	float = {
-		border = "rounded",
-	},
-	jump = {
-		float = true,
-	},
-})

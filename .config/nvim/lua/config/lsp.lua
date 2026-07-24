@@ -1,4 +1,23 @@
-vim.lsp.buf.signature_help({ border = "rounded" })
+vim.keymap.set("n", "K", function()
+	vim.lsp.buf.hover({
+		border = "rounded",
+	})
+end)
+
+vim.keymap.set("i", "<C-k>", function()
+	vim.lsp.buf.signature_help({
+		border = "rounded",
+	})
+end)
+
+vim.diagnostic.config({
+	float = {
+		border = "rounded",
+	},
+	jump = {
+		float = true,
+	},
+})
 
 vim.lsp.config("rust_analyzer", {
 	cmd = { "rust-analyzer" },

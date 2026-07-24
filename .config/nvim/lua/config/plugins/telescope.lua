@@ -3,7 +3,7 @@ local actions = require("telescope.actions")
 
 telescope.setup({
 	defaults = {
-		border = false,
+		border = true,
 		mappings = {
 			i = {
 				["<esc>"] = actions.close,
