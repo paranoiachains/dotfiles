@@ -6,8 +6,14 @@ vim.keymap.set("n", "<leader>q", vim.cmd.bd, { desc = "Close current buffer" })
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set("n", "<leader>t", "<cmd>ToggleTerm<CR><cmd><CR>", { desc = "Toggle terminal" })
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
+vim.keymap.set("n", "gx", function()
+	local line = vim.api.nvim_get_current_line()
+	local col = vim.fn.col(".")
+	local url = line:match("%b[]%((.-)%)")
+	if url then
+		vim.ui.open(url)
+	end
+end)
 
 local opts = { noremap = true, silent = true }
 

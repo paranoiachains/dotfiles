@@ -23,6 +23,12 @@ vim.opt.inccommand = "split"
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.opt.confirm = true
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "*",
+	callback = function()
+		vim.opt_local.conceallevel = 0
+	end,
+})
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.cmd.syntax("off")
