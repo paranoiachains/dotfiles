@@ -21,5 +21,7 @@ require("conform").setup({
 		cpp = { "clang-format" },
 		python = { "black" },
 		sh = { "shfmt" },
+		json = { "prettier" },
+		jsonc = { "prettier" },
 	},
 })
