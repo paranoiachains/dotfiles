@@ -1,10 +1,10 @@
-font=JetBrainsMono Nerd Font 11
+font=Inter 11
 
 background-color=#1a1b26ff
 text-color=#c0caf5ff
-border-color=#73daca99
+border-color=#7aa2f7
 border-size=1
-border-radius=6
+border-radius=3
 
 max-icon-size=24
 

@@ -30,6 +30,8 @@ exec waybar
 
 # theme
 
+font pango:Inter 11
+
 output * bg ~/wallpapers/flowers_upscayl_4x_ultrasharp-4x.png fill
 
 client.focused          #7aa2f7 #24283b #c0caf5 #7aa2f7 #7aa2f7
