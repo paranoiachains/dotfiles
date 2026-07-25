@@ -22,16 +22,7 @@ case "$(uname -s)" in
         ;;
 esac
 
-function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	command yazi "$@" --cwd-file="$tmp"
-	IFS= read -r -d '' cwd < "$tmp"
-	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
-	command rm -f -- "$tmp"
-}
-
-
-function lg()
+function lg
 {
     export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
 
@@ -84,6 +75,8 @@ ZSH_HIGHLIGHT_STYLES[comment]='fg=#565f89'
 ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=#ff9e64'
 
 ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#f7768e'
+
+[ -f "/home/keira/.ghcup/env" ] && . "/home/keira/.ghcup/env" # ghcup-env
 
 source <(fzf --zsh)
 

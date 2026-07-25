@@ -2,7 +2,6 @@ font-family = JetBrainsMono Nerd Font
 font-size = 15
 
 background-opacity = 0.92
-background-blur = true
 
 window-inherit-working-directory = true
 scrollback-limit = 10000000
@@ -15,4 +14,4 @@ macos-titlebar-style = hidden
 window-padding-x = 10
 window-padding-y = 10
 
-theme = Tokyonight Night
+theme = TokyoNight Night
