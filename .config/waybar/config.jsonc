@@ -1,33 +1,40 @@
 {
-    "layer": "top",
-    "position": "top",
-    "height": 36,
+  "layer": "top",
+  "position": "top",
+  "height": 36,
 
-    "modules-left": [
-        "sway/workspaces"
-    ],
+  "modules-left": ["sway/workspaces"],
 
-    "modules-center": [
-    ],
+  "modules-center": [],
 
-    "modules-right": [
-        "clock"
-    ],
+  "modules-right": ["sway/language", "custom/weather", "clock"],
 
-    "sway/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "format": "{name}"
-    },
-
-"clock": {
-  "format": "{:%H:%M}",
-  "tooltip-format": "<tt><small>{calendar}</small></tt>",
-  "calendar": {
-    "mode": "month",
-    "weeks-pos": "right",
-    "first-day-of-week": 1
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name}",
   },
-  "on-click": "gsimplecal"
-}
+
+  "clock": {
+    "format": "{:%H:%M}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "month",
+      "weeks-pos": "right",
+      "first-day-of-week": 1,
+    },
+    "on-click": "gsimplecal",
+  },
+
+  "sway/language": {
+    "tooltip": false,
+    "format": "{short}",
+    "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
+  },
+
+  "custom/weather": {
+    "exec": "~/.config/waybar/scripts/weather.sh",
+    "interval": 1800,
+    "tooltip": false,
+  },
 }

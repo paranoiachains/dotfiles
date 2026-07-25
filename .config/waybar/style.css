@@ -39,8 +39,24 @@ window#waybar {
     color: #f7768e;
 }
 
+#clock,
+#custom-weather,
+#language {
+    min-height: 28px;
+    padding: 0 12px;
+    margin: 4px 6px;
+    font-weight: 600;
+}
+
 #clock {
-    margin-right: 14px;
-    margin-left: 14px;
     color: #7dcfff;
+}
+
+#custom-weather {
+    color: #7dcfff;
+}
+
+#language {
+    color: #c0caf5;
+    font-weight: 700;
 }
