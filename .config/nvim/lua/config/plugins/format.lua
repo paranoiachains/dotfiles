@@ -20,5 +20,6 @@ require("conform").setup({
 		c = { "clang-format" },
 		cpp = { "clang-format" },
 		python = { "black" },
+		sh = { "shfmt" },
 	},
 })
