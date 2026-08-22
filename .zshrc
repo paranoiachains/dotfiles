@@ -1,11 +1,8 @@
-alias c='clear'
 alias ls='eza'
-alias grep='rg'
-alias cat='bat'
-alias n='nvim'
 alias lsa='ls -la'
 
 bindkey -v
+
 KEYTIMEOUT=1
 
 eval "$(zoxide init zsh)"
@@ -79,4 +76,3 @@ ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#f7768e'
 [ -f "/home/keira/.ghcup/env" ] && . "/home/keira/.ghcup/env" # ghcup-env
 
 source <(fzf --zsh)
-
