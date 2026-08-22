@@ -73,6 +73,12 @@ ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=#ff9e64'
 
 ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#f7768e'
 
-[ -f "/home/keira/.ghcup/env" ] && . "/home/keira/.ghcup/env" # ghcup-env
-
 source <(fzf --zsh)
+
+if [[ -e "$HOME/.config/zsh/proxy" ]]
+    source ~/.config/zsh/proxy
+fi
+
+if [[ -e "$HOME/.config/zsh/volatile" ]]
+    source ~/.config/zsh/volatile
+fi
