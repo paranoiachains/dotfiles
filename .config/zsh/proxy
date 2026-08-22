@@ -1,0 +1,8 @@
+export HTTP_PROXY="http://slproxy.securitylab.by:7070"
+export HTTPS_PROXY="http://slproxy.securitylab.by:7070"
+
+export http_proxy="$HTTP_PROXY"
+export https_proxy="$HTTPS_PROXY"
+
+export ALL_PROXY="http://slproxy.securitylab.by:7070"
+export all_proxy="$ALL_PROXY"

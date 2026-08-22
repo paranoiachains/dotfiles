@@ -1,7 +1,9 @@
+export ZDOTDIR="$HOME/.config/zsh"
+export EDITOR="${EDITOR:-nvim}"
+export VISUAL="${VISUAL:-$EDITOR}"
+export PAGER="${PAGER:-less}"
 . "$HOME/.cargo/env"
 export PATH="$PATH:$HOME/.local/bin"
-export VISUAL="nvim"
-export EDITOR="nvim"
 export XDG_CONFIG_HOME="$HOME/.config"
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

@@ -12,10 +12,10 @@ CONFIGS=(
     mako
     fuzzel
     tmux
+    zsh
 )
 
 DOTFILES=(
-    .zshrc
     .zshenv
     .tmux.conf
 )

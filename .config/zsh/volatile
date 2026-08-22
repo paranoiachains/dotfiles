@@ -1,0 +1,2 @@
+export PATH="$PATH:$HOME/Applications/OrbStack.app/Contents/MacOS/bin"
+export DOCKER_HOST=unix:///Users/liadouski.andrei/.orbstack/run/docker.sock
