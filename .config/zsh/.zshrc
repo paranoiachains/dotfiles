@@ -15,15 +15,20 @@ fi
 
 
 if (( $+functions[zinit] )); then
-    zinit light zsh-users/zsh-autosuggestions
-    zinit light zsh-users/zsh-completions
+    zinit ice depth=1
+    zinit light jeffreytse/zsh-vi-mode
+    ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+
     zinit light zdharma-continuum/fast-syntax-highlighting
+
+    zinit ice wait lucid
+    zinit light zsh-users/zsh-autosuggestions
+
+    zinit ice wait lucid
+    zinit light hlissner/zsh-autopair
 fi
 
 KEYTIMEOUT=1
-
-autoload -Uz compinit
-compinit
 
 if (( $+commands[zoxide] )); then
     eval "$(zoxide init zsh)"
@@ -57,40 +62,7 @@ function lg() {
     fi
 }
 
-
-typeset -A ZSH_HIGHLIGHT_STYLES
-
-ZSH_HIGHLIGHT_STYLES[default]='fg=#c0caf5'
-
-ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#f7768e'
-ZSH_HIGHLIGHT_STYLES[command]='fg=#7aa2f7'
-ZSH_HIGHLIGHT_STYLES[builtin]='fg=#bb9af7'
-ZSH_HIGHLIGHT_STYLES[alias]='fg=#7dcfff'
-ZSH_HIGHLIGHT_STYLES[function]='fg=#7dcfff'
-ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=#bb9af7'
-ZSH_HIGHLIGHT_STYLES[precommand]='fg=#bb9af7'
-
-ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#e0af68'
-ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#e0af68'
-
-ZSH_HIGHLIGHT_STYLES[path]='fg=#9ece6a'
-ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=#9ece6a'
-
-ZSH_HIGHLIGHT_STYLES[globbing]='fg=#ff9e64'
-
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#9ece6a'
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#9ece6a'
-
-ZSH_HIGHLIGHT_STYLES[numeric-glob]='fg=#e0af68'
-ZSH_HIGHLIGHT_STYLES[assign]='fg=#7dcfff'
-
-ZSH_HIGHLIGHT_STYLES[redirection]='fg=#f7768e'
-ZSH_HIGHLIGHT_STYLES[comment]='fg=#565f89'
-ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=#ff9e64'
-ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#f7768e'
-
 for config in \
-    "$HOME/.config/zsh/proxy" \
     "$HOME/.config/zsh/volatile"
 do
     [[ -r "$config" ]] && source "$config"
