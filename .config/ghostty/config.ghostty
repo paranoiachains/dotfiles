@@ -1,11 +1,18 @@
+language = en
+
+shell-intergration = zsh
+
 font-family = JetBrainsMono Nerd Font
 font-size = 15
 
 background-opacity = 0.92
 
 window-inherit-working-directory = true
+
 scrollback-limit = 10000000
+
 confirm-close-surface = false
+
 copy-on-select = false
 
 macos-option-as-alt = true
