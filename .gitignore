@@ -3,3 +3,5 @@ lazy-lock.json
 nvim-pack-lock.json
 .zcompdump
 .zsh_history
+.config/zsh/volatile
+.config/zsh/proxy
