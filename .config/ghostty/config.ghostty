@@ -1,6 +1,6 @@
 language = en
 
-shell-intergration = zsh
+shell-integration = zsh
 
 font-family = JetBrainsMono Nerd Font
 font-size = 15
