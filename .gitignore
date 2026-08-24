@@ -2,3 +2,4 @@ lazy-lock.json
 .tmux/
 nvim-pack-lock.json
 .zcompdump
+.zsh_history
