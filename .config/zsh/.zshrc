@@ -42,6 +42,9 @@ if (( $+commands[fzf] )); then
     source <(fzf --zsh)
 fi
 
+if ((  $+commands[mise]  )); then
+    eval "$(~/.local/bin/mise activate zsh)"
+fi
 
 if (( $+commands[eza] )); then
     alias ls='eza'
