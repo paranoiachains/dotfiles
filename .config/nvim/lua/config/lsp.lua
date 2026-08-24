@@ -198,7 +198,7 @@ vim.lsp.enable("jdtls")
 
 vim.lsp.config("bashls", {
 	cmd = { "bash-language-server", "start" },
-	filetypes = { "sh" },
+	filetypes = { "sh", "zsh" },
 	root_markers = { ".git" },
 })
 

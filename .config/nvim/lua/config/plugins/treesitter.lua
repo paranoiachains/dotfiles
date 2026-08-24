@@ -17,6 +17,12 @@ ts.install({
 	"json",
 })
 
+vim.filetype.add({
+	pattern = {
+		["${XDG_CONFIG_HOME}/zsh/.*"] = "zsh",
+	},
+})
+
 local group = vim.api.nvim_create_augroup("treesitter", { clear = true })
 
 vim.api.nvim_create_autocmd("FileType", {
