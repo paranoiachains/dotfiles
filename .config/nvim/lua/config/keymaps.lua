@@ -1,11 +1,7 @@
 -- general
 vim.keymap.set("n", "<Tab>", vim.cmd.bnext, { desc = "Next buffer" })
 vim.keymap.set("n", "<S-Tab>", vim.cmd.bprevious, { desc = "Previous buffer" })
-vim.keymap.set("n", "<leader>q", function()
-	local current = vim.api.nvim_get_current_buf()
-	vim.cmd("bnext")
-	vim.cmd("bdelete " .. current)
-end, { desc = "Close current buffer" })
+vim.keymap.set("n", "<leader>q", vim.cmd.bdelete, { desc = "Close current buffer" })
 
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
