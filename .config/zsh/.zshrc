@@ -1,5 +1,9 @@
 typeset -g ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
 
+if (($+commands[sway])); then
+    [ "$(tty)" = "/dev/tty1" ] && exec sway
+fi
+
 if [[ ! -r "$ZINIT_HOME/zinit.zsh" ]]; then
     if (($+commands[git])); then
         mkdir -p -- "${ZINIT_HOME:h}"
