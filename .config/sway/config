@@ -1,5 +1,3 @@
-set $mod Mod4
-
 set $left h
 set $down j
 set $up k
@@ -9,6 +7,12 @@ set $term ghostty
 set $menu fuzzel
 set $browser firefox
 set $filemanager thunar
+
+set $screenshots ~/screenshots
+
+floating_modifier Super normal
+
+# startup
 
 exec systemctl --user import-environment \
     WAYLAND_DISPLAY \
@@ -63,76 +67,77 @@ input type:keyboard {
     repeat_rate 50
 }
 
+default_border pixel 2
+default_floating_border pixel 2
+smart_borders on
+smart_gaps on
+
 # main binds
 
-bindsym $mod+t exec $term
+bindsym Super+t exec $term
 
-bindsym $mod+w kill
+bindsym Super+w kill
 
-bindsym $mod+d exec $menu
+bindsym Super+d exec $menu
 
-bindsym $mod+b exec $browser
+bindsym Super+b exec $browser
 
-bindsym $mod+f exec $filemanager
+bindsym Super+f exec $filemanager
 
-floating_modifier $mod normal
+bindsym Super+g floating toggle
 
-bindsym $mod+Shift+c reload
+bindsym Super+Shift+c reload
+
+bindsym Print exec grimshot copy area 
+bindsym Shift+Print exec grimshot save area 
+bindsym Ctrl+Print exec grimshot save screen $screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png
 
 # other binds
 
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym Super+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym Super+$left focus left
+bindsym Super+$down focus down
+bindsym Super+$up focus up
+bindsym Super+$right focus right
+bindsym Super+Left focus left
+bindsym Super+Down focus down
+bindsym Super+Up focus up
+bindsym Super+Right focus right
 
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+3 workspace number 3
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
-bindsym $mod+8 workspace number 8
-bindsym $mod+9 workspace number 9
-bindsym $mod+0 workspace number 10
-bindsym $mod+Shift+1 move container to workspace number 1
-bindsym $mod+Shift+2 move container to workspace number 2
-bindsym $mod+Shift+3 move container to workspace number 3
-bindsym $mod+Shift+4 move container to workspace number 4
-bindsym $mod+Shift+5 move container to workspace number 5
-bindsym $mod+Shift+6 move container to workspace number 6
-bindsym $mod+Shift+7 move container to workspace number 7
-bindsym $mod+Shift+8 move container to workspace number 8
-bindsym $mod+Shift+9 move container to workspace number 9
-bindsym $mod+Shift+0 move container to workspace number 10
-bindsym $mod+Ctrl+Left  move workspace to output left
-bindsym $mod+Ctrl+Right move workspace to output right
+bindsym Super+Shift+$left move left
+bindsym Super+Shift+$down move down
+bindsym Super+Shift+$up move up
+bindsym Super+Shift+$right move right
+bindsym Super+Shift+Left move left
+bindsym Super+Shift+Down move down
+bindsym Super+Shift+Up move up
+bindsym Super+Shift+Right move right
+bindsym Super+1 workspace number 1
+bindsym Super+2 workspace number 2
+bindsym Super+3 workspace number 3
+bindsym Super+4 workspace number 4
+bindsym Super+5 workspace number 5
+bindsym Super+6 workspace number 6
+bindsym Super+7 workspace number 7
+bindsym Super+8 workspace number 8
+bindsym Super+9 workspace number 9
+bindsym Super+0 workspace number 10
+bindsym Super+Shift+1 move container to workspace number 1
+bindsym Super+Shift+2 move container to workspace number 2
+bindsym Super+Shift+3 move container to workspace number 3
+bindsym Super+Shift+4 move container to workspace number 4
+bindsym Super+Shift+5 move container to workspace number 5
+bindsym Super+Shift+6 move container to workspace number 6
+bindsym Super+Shift+7 move container to workspace number 7
+bindsym Super+Shift+8 move container to workspace number 8
+bindsym Super+Shift+9 move container to workspace number 9
+bindsym Super+Shift+0 move container to workspace number 10
+bindsym Super+Ctrl+Left  move workspace to output left
+bindsym Super+Ctrl+Right move workspace to output right
 
 # opts
 
-mouse_warping none
-
-default_border pixel 1
 hide_edge_borders smart
-smart_gaps on
-smart_borders on
-
-gaps inner 8
-gaps outer 4
 
 workspace_auto_back_and_forth yes
 
@@ -141,9 +146,3 @@ seat seat0 hide_cursor 5000
 for_window [app_id="firefox" title="Picture-in-Picture"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_type="dialog"] floating enable
-
-set $screenshots ~/screenshots
-
-bindsym Print exec grimshot copy area 
-bindsym Shift+Print exec grimshot save area 
-bindsym Ctrl+Print exec grimshot save screen $screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png
