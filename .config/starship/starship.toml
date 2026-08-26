@@ -5,7 +5,8 @@ continuation_prompt = "[.](bright-black) "
 add_newline = false
 
 format = """
-$directory\
+$container\
+$directory \
 $git_branch\
 $character
 """
@@ -24,6 +25,11 @@ vimcmd_symbol = "[<](white)"
 vimcmd_visual_symbol = "[<](white)"
 vimcmd_replace_symbol = "[<](white)"
 vimcmd_replace_one_symbol = "[<](white)"
+
+[container]
+symbol = ""
+style = "purple"
+format = "[\\[$name\\]]($style) "
 
 [directory]
 format = "$path"
