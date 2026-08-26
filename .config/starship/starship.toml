@@ -40,6 +40,7 @@ home_symbol = "~"
 repo_root_format = '[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) '
 
 [git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
 symbol = "git:"
 truncation_symbol = "..."
 style = "bold white"
