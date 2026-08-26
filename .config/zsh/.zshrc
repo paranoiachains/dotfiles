@@ -67,6 +67,8 @@ function lg() {
     fi
 }
 
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+
 [[ -r "$HOME/.config/zsh/volatile" ]] && source "$HOME/.config/zsh/volatile"
 
 function proxy {

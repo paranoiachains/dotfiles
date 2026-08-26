@@ -13,6 +13,7 @@ CONFIGS=(
     fuzzel
     tmux
     zsh
+    starship
 )
 
 DOTFILES=(
