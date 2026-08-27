@@ -1,10 +1,11 @@
-#!/usr/bin/env bash
-
 set -euo pipefail
 
-CONFIG_DIR=".config"
+SCRIPT_DIR="${0:A:h}"
+DOTFILES_DIR="$SCRIPT_DIR"
 
-CONFIGS=(
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+APPS=(
     nvim
     sway
     waybar
@@ -16,33 +17,91 @@ CONFIGS=(
     starship
 )
 
-DOTFILES=(
-    .zshenv
-    .tmux.conf
-)
-
 COMMAND="${1:-}"
+EXCLUSION=""
+
+usage() {
+    echo "usage: $0 <push|pull> [-e|--exclude <config>]"
+}
 
 if [[ -z "$COMMAND" ]]; then
-    echo "usage: $0 <push|pull>"
+    usage
+    exit 1
+fi
+
+shift
+
+while (($# > 0)); do
+    case "$1" in
+    -e | --exclude)
+        if (($# < 2)); then
+            echo "error: $1 requires an argument"
+            exit 1
+        fi
+
+        EXCLUSION="$2"
+        shift 2
+        ;;
+
+    --)
+        shift
+        break
+        ;;
+
+    -*)
+        echo "unknown flag: $1"
+        usage
+        exit 1
+        ;;
+
+    *)
+        echo "unexpected argument: $1"
+        usage
+        exit 1
+        ;;
+    esac
+done
+
+is_exclusion() {
+    [[ "$1" == "$EXCLUSION" ]]
+}
+
+is_valid_config() {
+    for config in "${APPS[@]}"; do
+        [[ "$1" == "$config" ]] && return 0
+    done
+
+    return 1
+}
+
+if [[ -n "$EXCLUSION" ]] && ! is_valid_config "$EXCLUSION"; then
+    echo "error: config for exclusion not found: $EXCLUSION"
     exit 1
 fi
 
 case "$COMMAND" in
+
 pull)
     echo "pulling configuration..."
 
-    for config in "${CONFIGS[@]}"; do
-        echo "  .config/$config"
+    for config in "${APPS[@]}"; do
+        if is_exclusion "$config"; then
+            echo "  skipping $config"
+            continue
+        fi
 
-        rm -rf "$HOME/.config/$config"
-        cp -r "$CONFIG_DIR/$config" "$HOME/.config"
-    done
+        SOURCE="$DOTFILES_DIR/.config/$config"
+        DEST="$CONFIG_DIR/$config"
 
-    for file in "${DOTFILES[@]}"; do
-        echo "  $file"
+        if [[ ! -d "$SOURCE" ]]; then
+            echo "  warning: $SOURCE does not exist"
+            continue
+        fi
 
-        cp "$file" "$HOME"
+        echo "  $SOURCE -> $DEST"
+
+        rm -rf -- "$DEST"
+        cp -R -- "$SOURCE" "$DEST"
     done
 
     echo "pull complete."
@@ -51,17 +110,24 @@ pull)
 push)
     echo "pushing configuration..."
 
-    for config in "${CONFIGS[@]}"; do
-        echo "  .config/$config"
+    for config in "${APPS[@]}"; do
+        if is_exclusion "$config"; then
+            echo "  skipping $config"
+            continue
+        fi
 
-        rm -rf "$CONFIG_DIR/${config:?}"
-        cp -r "$HOME/.config/$config" "$CONFIG_DIR"
-    done
+        SOURCE="$CONFIG_DIR/$config"
+        DEST="$DOTFILES_DIR/.config/$config"
 
-    for file in "${DOTFILES[@]}"; do
-        echo "  $file"
+        if [[ ! -d "$SOURCE" ]]; then
+            echo "  warning: $SOURCE does not exist"
+            continue
+        fi
 
-        cp "$HOME/$file" .
+        echo "  $SOURCE -> $DEST"
+
+        rm -rf -- "$DEST"
+        cp -R -- "$SOURCE" "$DEST"
     done
 
     echo "push complete."
@@ -69,7 +135,8 @@ push)
 
 *)
     echo "unknown command: $COMMAND"
-    echo "usage: $0 <push|pull>"
+    usage
     exit 1
     ;;
+
 esac
