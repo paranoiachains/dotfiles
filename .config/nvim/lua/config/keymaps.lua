@@ -8,7 +8,6 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set("n", "gx", function()
 	local line = vim.api.nvim_get_current_line()
-	local col = vim.fn.col(".")
 	local url = line:match("%b[]%((.-)%)")
 	if url then
 		vim.ui.open(url)
@@ -40,7 +39,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
 	callback = function()
-		vim.hl.on_yank()
+		vim.hl.hl_op()
 	end,
 })
 

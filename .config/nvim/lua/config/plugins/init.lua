@@ -23,6 +23,18 @@ vim.pack.add({
 	gh("nvim-mini/mini.surround"),
 })
 
+pcall(vim.cmd.packdel, "++all")
+
+local installed = vim.pack.get(nil, { offline = false })
+
+for _, plugin in ipairs(installed) do
+	if plugin.rev ~= plugin.rev_to then
+		vim.cmd.packupdate(plugin.spec.name)
+	end
+end
+
+
+
 require("config.plugins.mason")
 require("config.plugins.format")
 require("config.plugins.completion")

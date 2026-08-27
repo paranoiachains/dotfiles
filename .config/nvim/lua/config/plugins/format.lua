@@ -15,11 +15,10 @@ require("conform").setup({
 	},
 
 	formatters_by_ft = {
-		lua = { "stylua" },
 		rust = { "rustfmt" },
 		c = { "clang-format" },
 		cpp = { "clang-format" },
-		python = { "black" },
+		python = { "ruff" },
 		sh = { "shfmt" },
 		json = { "prettier" },
 		jsonc = { "prettier" },
