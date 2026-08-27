@@ -1,10 +1,10 @@
 font=Inter 11
 
-background-color=#1a1b26ff
+background-color=#12131cff
 text-color=#c0caf5ff
-border-color=#7aa2f7
-border-size=1
-border-radius=3
+border-color=#ffffffff
+border-size=0
+border-radius=7
 
 max-icon-size=24
 

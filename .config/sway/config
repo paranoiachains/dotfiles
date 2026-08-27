@@ -30,7 +30,7 @@ exec systemctl --user import-environment XDG_CURRENT_DESKTOP=sway
 
 exec mako
 
-exec_always pkill -x waybar; waybar
+exec waybar
 
 # theme
 
