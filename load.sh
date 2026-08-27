@@ -1,7 +1,6 @@
 set -euo pipefail
 
-SCRIPT_DIR="${0:A:h}"
-DOTFILES_DIR="$SCRIPT_DIR"
+DOTFILES_DIR="$HOME/dotfiles"
 
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}"
 
@@ -79,6 +78,15 @@ if [[ -n "$EXCLUSION" ]] && ! is_valid_config "$EXCLUSION"; then
     exit 1
 fi
 
+pull_zshenv() {
+    cp "$DOTFILES_DIR/.zshenv" "$HOME/.zshenv"
+}
+
+push_zshenv() {
+    rm "$DOTFILES_DIR/.zshenv"
+    cp "$HOME/.zshenv" "$DOTFILES_DIR/.zshenv"
+}
+
 case "$COMMAND" in
 
 pull)
@@ -102,6 +110,10 @@ pull)
 
         rm -rf -- "$DEST"
         cp -R -- "$SOURCE" "$DEST"
+
+        if [[ "$EXCLUSION" != "zsh" ]]; then
+            pull_zshenv
+        fi
     done
 
     echo "pull complete."
@@ -128,6 +140,10 @@ push)
 
         rm -rf -- "$DEST"
         cp -R -- "$SOURCE" "$DEST"
+
+        if [[ "$EXCLUSION" != "zsh" ]]; then
+            pull_zshenv
+        fi
     done
 
     echo "push complete."
