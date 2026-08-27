@@ -1,39 +1,42 @@
 local gh = function(repo)
-	return "https://github.com/" .. repo
+    return "https://github.com/" .. repo
 end
 
 vim.pack.add({
-	gh("saghen/blink.cmp"),
-	gh("saghen/blink.lib"),
+    gh("saghen/blink.cmp"),
+    gh("saghen/blink.lib"),
 
-	gh("mason-org/mason.nvim"),
-	gh("mason-org/mason-lspconfig.nvim"),
+    gh("mason-org/mason.nvim"),
+    gh("mason-org/mason-lspconfig.nvim"),
 
-	gh("stevearc/conform.nvim"),
+    gh("stevearc/conform.nvim"),
 
-	gh("folke/tokyonight.nvim"),
-	gh("nvim-treesitter/nvim-treesitter"),
+    gh("folke/tokyonight.nvim"),
+    gh("nvim-treesitter/nvim-treesitter"),
 
-	gh("nvim-telescope/telescope.nvim"),
-	gh("nvim-lua/plenary.nvim"),
-	gh("nvim-telescope/telescope-fzf-native.nvim"),
-	gh("nvim-telescope/telescope-file-browser.nvim"),
+    gh("nvim-telescope/telescope.nvim"),
+    gh("nvim-lua/plenary.nvim"),
+    gh("nvim-telescope/telescope-fzf-native.nvim"),
+    gh("nvim-telescope/telescope-file-browser.nvim"),
 
-	gh("nvim-mini/mini.pairs"),
-	gh("nvim-mini/mini.surround"),
+    gh("nvim-mini/mini.pairs"),
+    gh("nvim-mini/mini.surround"),
 })
 
-pcall(vim.cmd.packdel, "++all")
 
-local installed = vim.pack.get(nil, { offline = false })
+vim.api.nvim_create_user_command("PackClean", function()
+    pcall(vim.cmd.packdel, "++all")
+end)
 
-for _, plugin in ipairs(installed) do
-	if plugin.rev ~= plugin.rev_to then
-		vim.cmd.packupdate(plugin.spec.name)
-	end
-end
+vim.api.nvim_create_user_command("PackUpdate", function()
+    local installed = vim.pack.get(nil, { offline = false })
 
-
+    for _, plugin in ipairs(installed) do
+        if plugin.rev ~= plugin.rev_to then
+            vim.cmd.packupdate(plugin.spec.name)
+        end
+    end
+end)
 
 require("config.plugins.mason")
 require("config.plugins.format")

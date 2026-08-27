@@ -26,4 +26,3 @@ vim.opt.scrolloff = 10
 vim.opt.confirm = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.cmd.syntax("off")
