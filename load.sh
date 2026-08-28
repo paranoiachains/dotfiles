@@ -106,10 +106,8 @@ pull)
             continue
         fi
 
-        echo "  $SOURCE -> $DEST"
-
         rm -rf -- "$DEST"
-        cp -R -- "$SOURCE" "$DEST"
+        cp -v -R -- "$SOURCE" "$DEST"
 
         if [[ "$EXCLUSION" != "zsh" ]]; then
             pull_zshenv
@@ -136,10 +134,8 @@ push)
             continue
         fi
 
-        echo "  $SOURCE -> $DEST"
-
         rm -rf -- "$DEST"
-        cp -R -- "$SOURCE" "$DEST"
+        cp -v -R -- "$SOURCE" "$DEST"
 
         if [[ "$EXCLUSION" != "zsh" ]]; then
             pull_zshenv
