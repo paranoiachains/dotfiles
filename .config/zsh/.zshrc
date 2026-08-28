@@ -49,11 +49,6 @@ if (($+commands[mise])); then
     eval "$(~/.local/bin/mise activate zsh)"
 fi
 
-if (($+commands[eza])); then
-    alias ls='eza'
-    alias lsa='eza -la'
-fi
-
 function lg() {
     local newdir_file="${LAZYGIT_NEW_DIR_FILE:-$HOME/.lazygit/newdir}"
 
@@ -70,6 +65,7 @@ function lg() {
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 
 [[ -r "$HOME/.config/zsh/volatile" ]] && source "$HOME/.config/zsh/volatile"
+[[ -r "$HOME/.config/zsh/aliases" ]] && source "$HOME/.config/zsh/aliases"
 
 function proxy {
     cmd="$1"
