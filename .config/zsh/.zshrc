@@ -72,13 +72,13 @@ function proxy {
     proxy="$2"
     case "$cmd" in
     enable)
-        export HTTP_PROXY="{http://$proxy}"
-        export HTTPS_PROXY="{https://$proxy}"
+        export HTTP_PROXY="http://$proxy"
+        export HTTPS_PROXY="http://$proxy"
 
         export http_proxy="$HTTP_PROXY"
         export https_proxy="$HTTPS_PROXY"
 
-        export ALL_PROXY="{http://$proxy}"
+        export ALL_PROXY="http://$proxy"
         export all_proxy="$ALL_PROXY"
 
         echo "enabled $proxy proxy"
