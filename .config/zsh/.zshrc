@@ -70,31 +70,40 @@ export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 function proxy {
     cmd="$1"
     proxy="$2"
+
     case "$cmd" in
     enable)
         export HTTP_PROXY="http://$proxy"
         export HTTPS_PROXY="http://$proxy"
+        export ALL_PROXY="http://$proxy"
 
         export http_proxy="$HTTP_PROXY"
         export https_proxy="$HTTPS_PROXY"
-
-        export ALL_PROXY="http://$proxy"
         export all_proxy="$ALL_PROXY"
+
+        export SSH_PROXY="$proxy"
 
         echo "enabled $proxy proxy"
         ;;
+
     disable)
-        unset HTTP_PROXY
-        unset HTTPS_PROXY
-        unset ALL_PROXY
-        unset http_proxy
-        unset https_proxy
-        unset all_proxy
+        unset HTTP_PROXY HTTPS_PROXY ALL_PROXY
+        unset http_proxy https_proxy all_proxy
+        unset SSH_PROXY
 
         echo "disabled proxy"
         ;;
+
     *)
-        echo "function usage: proxy start|stop [url:port]"
+        echo "usage: proxy enable|disable [host:port]"
         ;;
     esac
+}
+
+function ssh {
+    if [[ "$SSH_PROXY" ]]; then
+        command ssh -o "ProxyCommand=nc -X 5 -x $SSH_PROXY %h %p" "$@"
+    else
+        command ssh "$@"
+    fi
 }
