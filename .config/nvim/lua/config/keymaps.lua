@@ -19,16 +19,9 @@ vim.keymap.set("", "<Right>", "<Nop>", opts)
 
 vim.keymap.set("n", "<Esc><Esc>", vim.cmd.nohlsearch, { silent = true })
 
-vim.keymap.set("n", "<leader>;", function()
-    local line = vim.api.nvim_get_current_line()
-    if not line:match(";%s*$") then
-        vim.api.nvim_set_current_line(line .. ";")
-    end
-end)
-
 -- stolen from lazy
 vim.api.nvim_create_autocmd("TextYankPost", {
-    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+    group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
     callback = function()
         vim.hl.hl_op()
     end

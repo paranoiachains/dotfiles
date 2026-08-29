@@ -6,9 +6,6 @@ vim.pack.add({
     gh("saghen/blink.cmp"),
     gh("saghen/blink.lib"),
 
-    gh("mason-org/mason.nvim"),
-    gh("mason-org/mason-lspconfig.nvim"),
-
     gh("stevearc/conform.nvim"),
 
     gh("folke/tokyonight.nvim"),
@@ -24,9 +21,9 @@ vim.pack.add({
 })
 
 
-vim.api.nvim_create_user_command("PackClean", function()
+vim.api.nvim_create_user_command("PackClean", function(_)
     pcall(vim.cmd.packdel, "++all")
-end)
+end, {})
 
 vim.api.nvim_create_user_command("PackUpdate", function()
     local installed = vim.pack.get(nil, { offline = false })
@@ -36,9 +33,8 @@ vim.api.nvim_create_user_command("PackUpdate", function()
             vim.cmd.packupdate(plugin.spec.name)
         end
     end
-end)
+end, {})
 
-require("config.plugins.mason")
 require("config.plugins.format")
 require("config.plugins.completion")
 require("config.plugins.theme")

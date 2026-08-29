@@ -9,22 +9,17 @@ local function on_jump(diagnostic, bufnr)
         diagnostic.namespace,
         bufnr,
         { diagnostic },
-        { virtual_lines = { current_line = true }, virtual_text = false }
+        {}
     )
 end
 
 vim.diagnostic.config({
-    float = {
-        border = "rounded",
-    },
-
     jump = {
         on_jump = on_jump,
     },
-})
 
-vim.lsp.config("*", {
-    root_markers = { ".git" }
+    virtual_lines = { current_line = true },
+    virtual_text = false
 })
 
 vim.lsp.enable("c")

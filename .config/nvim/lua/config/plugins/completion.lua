@@ -1,57 +1,51 @@
 local blink = require("blink.cmp")
 
 blink.setup({
-	keymap = {
-		preset = "none",
+    keymap = {
+        preset = "none",
 
-		["<Tab>"] = { "select_next", "fallback" },
-		["<S-Tab>"] = { "select_prev", "fallback" },
+        ["<Tab>"] = { "select_next", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "fallback" },
 
-		["<CR>"] = { "accept", "fallback" },
+        ["<CR>"] = { "accept", "fallback" },
 
-		["<C-n>"] = { "scroll_documentation_down", "fallback" },
-		["<C-p>"] = { "scroll_documentation_up", "fallback" },
-	},
+        ["<C-n>"] = { "scroll_documentation_down", "fallback" },
+        ["<C-p>"] = { "scroll_documentation_up", "fallback" },
+    },
 
-	completion = {
-		menu = {
-			border = "rounded",
+    completion = {
+        menu = {
+            draw = {
+                columns = {
+                    { "label", "label_description", gap = 1 },
+                    { "kind" },
+                },
+            },
+        },
 
-			draw = {
-				columns = {
-					{ "label", "label_description", gap = 1 },
-					{ "kind" },
-				},
-			},
-		},
+        documentation = {
+            auto_show = true,
+            auto_show_delay_ms = 0,
+        },
 
-		documentation = {
-			auto_show = true,
-			auto_show_delay_ms = 0,
+        list = {
+            selection = {
+                preselect = false,
+            },
+        },
+    },
 
-			window = {
-				border = "rounded",
-			},
-		},
+    sources = {
+        default = {
+            "lsp",
+            "path",
+            "buffer",
+        },
+    },
 
-		list = {
-			selection = {
-				preselect = false,
-			},
-		},
-	},
-
-	sources = {
-		default = {
-			"lsp",
-			"path",
-			"buffer",
-		},
-	},
-
-	fuzzy = {
-		implementation = "lua",
-	},
+    fuzzy = {
+        implementation = "lua",
+    },
 })
 
 blink.build():wait()
