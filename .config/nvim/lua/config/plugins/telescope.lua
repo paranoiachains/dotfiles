@@ -1,20 +1,9 @@
-local M = {}
+local actions = require("telescope.actions")
+local telescope = require("telescope")
 
-local initialized = false
-
-function M.setup()
-    if initialized then
-        return
-    end
-
-    initialized = true
-
-    local actions = require("telescope.actions")
-    local telescope = require("telescope")
-
-    telescope.setup({
+telescope.setup({
 	defaults = {
-		border = true,
+		border = false,
 		mappings = {
 			i = {
 				["<esc>"] = actions.close,
@@ -24,6 +13,8 @@ function M.setup()
 
 				-- clear prompt on <C-u>
 				["<C-u>"] = false,
+
+				["<leader>fd"] = require("telescope.builtin").find_files,
 			},
 		},
 
@@ -71,7 +62,6 @@ function M.setup()
 				"--type",
 				"f",
 				"--strip-cwd-prefix",
-				"--hidden",
 				"--follow",
 				"--exclude",
 				".git",
@@ -112,11 +102,3 @@ function M.setup()
 })
 
 pcall(telescope.load_extension, "fzf")
-end
-
-function M.builtin()
-    M.setup()
-    return require("telescope.builtin")
-end
-
-return M

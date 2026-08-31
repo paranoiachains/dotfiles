@@ -1,5 +1,6 @@
 require("config.opts")
 require("config.autocmds")
+require("config.usercmds")
 require("config.plugins")
 require("config.lsp")
 require("config.keymaps")
