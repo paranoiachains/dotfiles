@@ -35,8 +35,8 @@ vim.api.nvim_create_user_command("PackUpdate", function()
     end
 end, {})
 
-require("config.plugins.format")
 require("config.plugins.completion")
+require("config.plugins.format")
 require("config.plugins.theme")
 require("config.plugins.telescope")
 require("config.plugins.mini")

@@ -12,10 +12,10 @@ local opts = { noremap = true, silent = true }
 
 vim.keymap.set({ "n", "v", "o" }, "$", "g_", { noremap = true })
 
-vim.keymap.set("", "<Up>", "<Nop>", opts)
-vim.keymap.set("", "<Down>", "<Nop>", opts)
-vim.keymap.set("", "<Left>", "<Nop>", opts)
-vim.keymap.set("", "<Right>", "<Nop>", opts)
+vim.keymap.set({"n", "v", "i"}, "<Up>", "<Nop>", opts)
+vim.keymap.set({"n", "v", "i"}, "<Down>", "<Nop>", opts)
+vim.keymap.set({"n", "v", "i"}, "<Left>", "<Nop>", opts)
+vim.keymap.set({"n", "v", "i"}, "<Right>", "<Nop>", opts)
 
 vim.keymap.set("n", "<Esc><Esc>", vim.cmd.nohlsearch, { silent = true })
 
@@ -27,12 +27,18 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end
 })
 
--- telescope
-local builtin = require("telescope.builtin")
+-- lsp
+vim.keymap.set("n", "grd", vim.lsp.buf.definition)
 
-vim.keymap.set("n", "<leader>fd", builtin.find_files)
+-- telescope
+local telescope = require("config.plugins.telescope")
+
+vim.keymap.set("n", "<leader>fd", function()
+    telescope.builtin().find_files()
+end)
+
 vim.keymap.set("n", "<leader>fg", function()
-    builtin.live_grep({
+    telescope.builtin().live_grep({
         additional_args = function(_)
             return {
                 "--hidden",
@@ -41,10 +47,14 @@ vim.keymap.set("n", "<leader>fg", function()
             }
         end,
     })
-end, { desc = "Live grep (project)" })
+end)
 
-vim.keymap.set("n", "<leader>fe", builtin.buffers)
+vim.keymap.set("n", "<leader>fe", function()
+    telescope.builtin().buffers()
+end)
 
 vim.keymap.set("n", "<leader>fn", function()
-    builtin.find_files({ cwd = vim.fn.stdpath("config") })
+    telescope.builtin().find_files({
+        cwd = vim.fn.stdpath("config"),
+    })
 end)

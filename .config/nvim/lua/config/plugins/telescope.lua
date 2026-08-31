@@ -1,7 +1,18 @@
-local telescope = require("telescope")
-local actions = require("telescope.actions")
+local M = {}
 
-telescope.setup({
+local initialized = false
+
+function M.setup()
+    if initialized then
+        return
+    end
+
+    initialized = true
+
+    local actions = require("telescope.actions")
+    local telescope = require("telescope")
+
+    telescope.setup({
 	defaults = {
 		border = true,
 		mappings = {
@@ -101,3 +112,11 @@ telescope.setup({
 })
 
 pcall(telescope.load_extension, "fzf")
+end
+
+function M.builtin()
+    M.setup()
+    return require("telescope.builtin")
+end
+
+return M
