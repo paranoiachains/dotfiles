@@ -1,1 +1,18 @@
-alias ls="gls --color=auto"
+case "$(uname -s)" in
+Linux)
+    LS='ls --color=auto'
+    ;;
+Darwin)
+    if command -v gls >/dev/null 2>&1; then
+        LS='gls --color=auto'
+    else
+        LS='ls'
+    fi
+    ;;
+*)
+    LS='ls'
+    ;;
+esac
+
+alias ls="$LS"
+alias lsa="$LS -lah"
