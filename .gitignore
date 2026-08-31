@@ -1,7 +1,6 @@
-lazy-lock.json
 .tmux/
 nvim-pack-lock.json
 .zcompdump
 .zsh_history
 .config/zsh/volatile
-.config/zsh/proxy
+.DS_Store
