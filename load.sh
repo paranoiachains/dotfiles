@@ -81,12 +81,11 @@ if [[ -n "$EXCLUSION" ]] && ! is_valid_config "$EXCLUSION"; then
 fi
 
 pull_zshenv() {
-    cp "$DOTFILES_DIR/.zshenv" "$HOME/.zshenv"
+    cp -v "$DOTFILES_DIR/.zshenv" "$HOME/.zshenv"
 }
 
 push_zshenv() {
-    rm "$DOTFILES_DIR/.zshenv"
-    cp "$HOME/.zshenv" "$DOTFILES_DIR/.zshenv"
+    cp -v -- "$HOME/.zshenv" "$DOTFILES_DIR/.zshenv"
 }
 
 case "$COMMAND" in
@@ -140,7 +139,7 @@ push)
         cp -v -R -- "$SOURCE" "$DEST"
 
         if [[ "$EXCLUSION" != "zsh" ]]; then
-            pull_zshenv
+            push_zshenv
         fi
     done
 
