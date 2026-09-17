@@ -1,11 +1,13 @@
+#!/bin/bash
+
 typeset -g ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
 
-if (($+commands[sway])); then
+if command -v sway >/dev/null 2>&1; then
     [ "$(tty)" = "/dev/tty1" ] && exec sway
 fi
 
 if [[ ! -r "$ZINIT_HOME/zinit.zsh" ]]; then
-    if (($+commands[git])); then
+    if command -v git >/dev/null 2>&1; then
         mkdir -p -- "${ZINIT_HOME:h}"
         git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
     else
@@ -17,7 +19,7 @@ if [[ -r "$ZINIT_HOME/zinit.zsh" ]]; then
     source "$ZINIT_HOME/zinit.zsh"
 fi
 
-if (($+functions[zinit])); then
+if command -v zinit >/dev/null 2>&1; then
     zinit ice depth=1
     zinit light jeffreytse/zsh-vi-mode
     export ZVM_SYSTEM_CLIPBOARD_ENABLED=true
@@ -33,20 +35,16 @@ fi
 
 export KEYTIMEOUT=1
 
-if (($+commands[zoxide])); then
+if command -v zoxide >/dev/null 2>&1; then
     eval "$(zoxide init zsh)"
 fi
 
-if (($+commands[starship])); then
+if command -v starship >/dev/null 2>&1; then
     eval "$(starship init zsh)"
 fi
 
-if (($+commands[fzf])); then
+if command -v fzf >/dev/null 2>&1; then
     source <(fzf --zsh)
-fi
-
-if (($+commands[mise])); then
-    eval "$(~/.local/bin/mise activate zsh)"
 fi
 
 function lg() {
