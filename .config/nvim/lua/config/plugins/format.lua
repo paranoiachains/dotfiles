@@ -36,6 +36,8 @@ require("conform").setup({
 		bash = { "shfmt" },
 		sh = { "shfmt" },
 		zsh = { "shfmt" },
+		html = { "prettier" },
+		htmldjango = { "prettier" },
 		json = { "prettier" },
 		jsonc = { "prettier" },
 		["_"] = { "trim_whitespace" },

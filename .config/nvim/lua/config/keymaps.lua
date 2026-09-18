@@ -3,11 +3,6 @@ vim.keymap.set("n", "<Tab>", vim.cmd.bnext)
 vim.keymap.set("n", "<S-Tab>", vim.cmd.bprevious)
 vim.keymap.set("n", "<leader>q", vim.cmd.bdelete)
 
-vim.keymap.set("n", "m", ":m .+1<CR>==")
-vim.keymap.set("n", "<C-m>", ":m .-2<CR>==")
-vim.keymap.set("v", "m", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "<C-m>", ":m '<-2<CR>gv=gv")
-
 vim.keymap.set("n", "<leader>t", vim.cmd.tabnew)
 
 vim.keymap.set({ "n", "v", "o" }, "$", "g_", { noremap = true })
