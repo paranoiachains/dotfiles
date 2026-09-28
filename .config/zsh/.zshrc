@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 typeset -g ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 if command -v sway >/dev/null 2>&1; then
     [ "$(tty)" = "/dev/tty1" ] && exec sway
@@ -65,6 +67,8 @@ export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 [[ -r "$HOME/.config/zsh/volatile" ]] && source "$HOME/.config/zsh/volatile"
 [[ -r "$HOME/.config/zsh/aliases" ]] && source "$HOME/.config/zsh/aliases"
 
+zinit light zsh-users/zsh-autosuggestions
+
 function proxy {
     cmd="$1"
     proxy="$2"
@@ -105,3 +109,24 @@ function ssh {
         command ssh "$@"
     fi
 }
+
+autoload -Uz compinit
+compinit
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# exports
+#
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+export PATH="$HOME/go/bin:$PATH"
+
+export EDITOR="${EDITOR:-nvim}"
+export VISUAL="${VISUAL:-$EDITOR}"
+export PAGER="${PAGER:-less}"
+
+export PATH="$HOME/.local/bin:$PATH"
+
+[[ -r "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+export PATH=$PATH:$HOME/.pdtm/go/bin
