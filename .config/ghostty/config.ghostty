@@ -4,6 +4,9 @@ shell-integration = zsh
 
 font-family = JetBrainsMono Nerd Font
 font-size = 15
+font-feature = -calt
+font-feature = -liga
+adjust-cell-width = -1
 
 background-opacity = 0.92
 
@@ -13,7 +16,7 @@ scrollback-limit = 10000000
 
 confirm-close-surface = false
 
-copy-on-select = false
+copy-on-select = true
 
 macos-option-as-alt = true
 
@@ -21,3 +24,16 @@ window-padding-x = 10
 window-padding-y = 10
 
 theme = TokyoNight Night
+
+keybind = super+shift+j=goto_split:down
+keybind = super+shift+l=goto_split:right
+keybind = super+shift+k=goto_split:up
+keybind = super+shift+h=goto_split:left
+
+keybind = super+ctrl+j=resize_split:down,20
+keybind = super+ctrl+l=resize_split:right,20
+keybind = super+ctrl+k=resize_split:up,20
+keybind = super+ctrl+h=resize_split:left,20
+
+
+shell-integration-features = ssh-env,ssh-terminfo
