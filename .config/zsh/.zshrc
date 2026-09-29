@@ -4,8 +4,8 @@ typeset -g ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-if command -v sway >/dev/null 2>&1; then
-    [ "$(tty)" = "/dev/tty1" ] && exec sway
+if command -v sway >/dev/null 2>&1 && [[ -o interactive && "$TTY" == "/dev/tty1" ]]; then
+    exec sway
 fi
 
 if [[ ! -r "$ZINIT_HOME/zinit.zsh" ]]; then
@@ -23,8 +23,8 @@ fi
 
 if command -v zinit >/dev/null 2>&1; then
     zinit ice depth=1
-    zinit light jeffreytse/zsh-vi-mode
     export ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+    zinit light jeffreytse/zsh-vi-mode
 
     zinit light zdharma-continuum/fast-syntax-highlighting
 
@@ -40,6 +40,8 @@ export KEYTIMEOUT=1
 if command -v zoxide >/dev/null 2>&1; then
     eval "$(zoxide init zsh)"
 fi
+
+export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 
 if command -v starship >/dev/null 2>&1; then
     eval "$(starship init zsh)"
@@ -62,28 +64,31 @@ function lg() {
     fi
 }
 
-export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-
-[[ -r "$HOME/.config/zsh/volatile" ]] && source "$HOME/.config/zsh/volatile"
-[[ -r "$HOME/.config/zsh/aliases" ]] && source "$HOME/.config/zsh/aliases"
-
-zinit light zsh-users/zsh-autosuggestions
+[[ -r "$XDG_CONFIG_HOME/zsh/volatile" ]] && source "$XDG_CONFIG_HOME/zsh/volatile"
+[[ -r "$XDG_CONFIG_HOME/zsh/aliases" ]] && source "$XDG_CONFIG_HOME/zsh/aliases"
 
 function proxy {
-    cmd="$1"
-    proxy="$2"
+    local action="${1:-}"
+    local proxy_url="${2:-}"
 
-    case "$cmd" in
+    case "$action" in
     enable)
-        export HTTP_PROXY="http://$proxy"
-        export HTTPS_PROXY="http://$proxy"
-        export ALL_PROXY="http://$proxy"
+        if [[ -z "$proxy_url" ]]; then
+            print -u2 "usage: proxy enable host:port"
+            return 2
+        fi
+
+        [[ "$proxy_url" == *://* ]] || proxy_url="http://$proxy_url"
+
+        export HTTP_PROXY="$proxy_url"
+        export HTTPS_PROXY="$proxy_url"
+        export ALL_PROXY="$proxy_url"
 
         export http_proxy="$HTTP_PROXY"
         export https_proxy="$HTTPS_PROXY"
         export all_proxy="$ALL_PROXY"
 
-        echo "enabled $proxy proxy"
+        echo "enabled $proxy_url proxy"
         ;;
 
     disable)
@@ -93,13 +98,14 @@ function proxy {
         echo "disabled proxy"
         ;;
     *)
-        echo "usage: proxy enable|disable [host:port]"
+        print -u2 "usage: proxy enable host:port|disable"
+        return 2
         ;;
     esac
 }
 
 function ssh {
-    if [[ "$SSH_PROXY" ]]; then
+    if [[ -n "${SSH_PROXY:-}" ]]; then
         command ssh -o "ProxyCommand=nc -X 5 -x $SSH_PROXY %h %p" "$@"
     else
         command ssh "$@"
@@ -108,11 +114,6 @@ function ssh {
 
 autoload -Uz compinit
 compinit
-
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
-# exports
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
 export PATH="$HOME/go/bin:$PATH"
 
