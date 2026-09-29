@@ -7,22 +7,25 @@ DOTFILES_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}"
 
 APPS=(
-    nvim
-    sway
-    waybar
-    ghostty
-    mako
     fuzzel
-    tmux
-    zsh
+    ghostty
+    lazygit
+    mako
+    nvim
     starship
+    sway
+    tmux
+    waybar
+    zsh
 )
 
 COMMAND="${1:-}"
-EXCLUSION=""
+EXCLUSIONS=()
+BACKUP_DIR=""
+BACKUP_ROOT="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/backups"
 
 usage() {
-    echo "usage: $0 <push|pull> [-e|--exclude <config>]"
+    echo "usage: $0 <push|pull> [-e|--exclude <config>]..."
 }
 
 if [[ -z "$COMMAND" ]]; then
@@ -40,7 +43,7 @@ while (($# > 0)); do
             exit 1
         fi
 
-        EXCLUSION="$2"
+        EXCLUSIONS+=("$2")
         shift 2
         ;;
 
@@ -64,7 +67,14 @@ while (($# > 0)); do
 done
 
 is_exclusion() {
-    [[ "$1" == "$EXCLUSION" ]]
+    local config="$1"
+    local exclusion
+
+    for exclusion in "${EXCLUSIONS[@]}"; do
+        [[ "$config" == "$exclusion" ]] && return 0
+    done
+
+    return 1
 }
 
 is_valid_config() {
@@ -75,23 +85,133 @@ is_valid_config() {
     return 1
 }
 
-if [[ -n "$EXCLUSION" ]] && ! is_valid_config "$EXCLUSION"; then
-    echo "error: config for exclusion not found: $EXCLUSION"
-    exit 1
-fi
+for exclusion in "${EXCLUSIONS[@]}"; do
+    if ! is_valid_config "$exclusion"; then
+        echo "error: config for exclusion not found: $exclusion"
+        exit 1
+    fi
+done
+
+make_backup_dir() {
+    if [[ -z "$BACKUP_DIR" ]]; then
+        BACKUP_DIR="$BACKUP_ROOT/$(date +%Y%m%d-%H%M%S)-$$"
+        mkdir -p -- "$BACKUP_DIR"
+    fi
+}
+
+backup_existing() {
+    local path="$1"
+    local name="$2"
+
+    if [[ -e "$path" || -L "$path" ]]; then
+        make_backup_dir
+        mv -- "$path" "$BACKUP_DIR/$name"
+        echo "  backed up $path to $BACKUP_DIR/$name"
+    fi
+}
+
+replace_directory() {
+    local source="$1"
+    local dest="$2"
+    local name="$3"
+    local parent="${dest%/*}"
+    local staging
+
+    mkdir -p -- "$parent"
+    staging="$(mktemp -d "$parent/.${name}.staging.XXXXXX")"
+
+    if ! cp -pR -- "$source" "$staging/"; then
+        rm -rf -- "$staging"
+        return 1
+    fi
+
+    remove_local_state "$staging/$name"
+    preserve_local_state "$dest" "$staging/$name"
+
+    backup_existing "$dest" "$name"
+
+    if ! mv -- "$staging/$name" "$dest"; then
+        if [[ -n "$BACKUP_DIR" && (-e "$BACKUP_DIR/$name" || -L "$BACKUP_DIR/$name") ]]; then
+            mv -- "$BACKUP_DIR/$name" "$dest"
+        fi
+        rm -rf -- "$staging"
+        return 1
+    fi
+
+    rmdir -- "$staging"
+}
+
+remove_local_state() {
+    local root="$1"
+
+    rm -rf -- \
+        "$root/.zsh_history" \
+        "$root/.zcompdump" \
+        "$root/volatile" \
+        "$root/nvim-pack-lock.json"
+    find "$root" -name .DS_Store -exec rm -rf {} +
+}
+
+preserve_local_state() {
+    local source="$1"
+    local dest="$2"
+    local file
+
+    for file in .zsh_history .zcompdump nvim-pack-lock.json; do
+        if [[ -f "$source/$file" ]]; then
+            cp -p -- "$source/$file" "$dest/$file"
+        fi
+    done
+
+    if [[ -d "$source/volatile" ]]; then
+        cp -pR -- "$source/volatile" "$dest/"
+    fi
+}
+
+replace_file() {
+    local source="$1"
+    local dest="$2"
+    local name="$3"
+    local parent="${dest%/*}"
+    local staging
+
+    mkdir -p -- "$parent"
+    staging="$(mktemp -d "$parent/.${name}.staging.XXXXXX")"
+
+    if ! cp -p -- "$source" "$staging/$name"; then
+        rm -rf -- "$staging"
+        return 1
+    fi
+
+    backup_existing "$dest" "$name"
+
+    if ! mv -- "$staging/$name" "$dest"; then
+        if [[ -n "$BACKUP_DIR" && (-e "$BACKUP_DIR/$name" || -L "$BACKUP_DIR/$name") ]]; then
+            mv -- "$BACKUP_DIR/$name" "$dest"
+        fi
+        rm -rf -- "$staging"
+        return 1
+    fi
+
+    rmdir -- "$staging"
+}
 
 pull_zshenv() {
-    cp -v "$DOTFILES_DIR/.zshenv" "$HOME/.zshenv"
+    replace_file "$DOTFILES_DIR/.zshenv" "$HOME/.zshenv" ".zshenv"
 }
 
 push_zshenv() {
-    cp -v -- "$HOME/.zshenv" "$DOTFILES_DIR/.zshenv"
+    replace_file "$HOME/.zshenv" "$DOTFILES_DIR/.zshenv" ".zshenv"
 }
 
 case "$COMMAND" in
 
 pull)
     echo "pulling configuration..."
+
+    if ! is_exclusion zsh; then
+        pull_zshenv
+    fi
 
     for config in "${APPS[@]}"; do
         if is_exclusion "$config"; then
@@ -107,12 +227,8 @@ pull)
             continue
         fi
 
-        rm -rf -- "$DEST"
-        cp -v -R -- "$SOURCE" "$DEST"
-
-        if [[ "$EXCLUSION" != "zsh" ]]; then
-            pull_zshenv
-        fi
+        replace_directory "$SOURCE" "$DEST" "$config"
+        echo "  pulled $config"
     done
 
     echo "pull complete."
@@ -120,6 +236,10 @@ pull)
 
 push)
     echo "pushing configuration..."
+
+    if ! is_exclusion zsh; then
+        push_zshenv
+    fi
 
     for config in "${APPS[@]}"; do
         if is_exclusion "$config"; then
@@ -135,12 +255,8 @@ push)
             continue
         fi
 
-        rm -rf -- "$DEST"
-        cp -v -R -- "$SOURCE" "$DEST"
-
-        if [[ "$EXCLUSION" != "zsh" ]]; then
-            push_zshenv
-        fi
+        replace_directory "$SOURCE" "$DEST" "$config"
+        echo "  pushed $config"
     done
 
     echo "push complete."
