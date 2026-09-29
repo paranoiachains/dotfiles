@@ -83,19 +83,15 @@ function proxy {
         export https_proxy="$HTTPS_PROXY"
         export all_proxy="$ALL_PROXY"
 
-        export SSH_PROXY="$proxy"
-
         echo "enabled $proxy proxy"
         ;;
 
     disable)
         unset HTTP_PROXY HTTPS_PROXY ALL_PROXY
         unset http_proxy https_proxy all_proxy
-        unset SSH_PROXY
 
         echo "disabled proxy"
         ;;
-
     *)
         echo "usage: proxy enable|disable [host:port]"
         ;;
@@ -116,7 +112,6 @@ compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # exports
-#
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
 export PATH="$HOME/go/bin:$PATH"
