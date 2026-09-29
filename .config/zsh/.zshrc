@@ -24,6 +24,26 @@ fi
 if command -v zinit >/dev/null 2>&1; then
     zinit ice depth=1
     export ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+
+    function zvm_config {
+        local normal_cursor insert_cursor visual_cursor visual_line_cursor oppend_cursor
+
+        normal_cursor="$(zvm_cursor_style "$ZVM_NORMAL_MODE_CURSOR")"
+        insert_cursor="$(zvm_cursor_style "$ZVM_INSERT_MODE_CURSOR")"
+        visual_cursor="$(zvm_cursor_style "$ZVM_VISUAL_MODE_CURSOR")"
+        visual_line_cursor="$(zvm_cursor_style "$ZVM_VISUAL_LINE_MODE_CURSOR")"
+        oppend_cursor="$(zvm_cursor_style "$ZVM_OPPEND_MODE_CURSOR")"
+
+        ZVM_NORMAL_MODE_CURSOR="${normal_cursor}"$'\e\e]12;#c0caf5\a'
+        ZVM_INSERT_MODE_CURSOR="${insert_cursor}"$'\e\e]12;#c0caf5\a'
+        ZVM_VISUAL_MODE_CURSOR="${visual_cursor}"$'\e\e]12;#c0caf5\a'
+        ZVM_VISUAL_LINE_MODE_CURSOR="${visual_line_cursor}"$'\e\e]12;#c0caf5\a'
+        ZVM_OPPEND_MODE_CURSOR="${oppend_cursor}"$'\e\e]12;#c0caf5\a'
+
+        ZVM_VI_HIGHLIGHT_BACKGROUND="#283457"
+        ZVM_VI_HIGHLIGHT_FOREGROUND="#c0caf5"
+    }
+
     zinit light jeffreytse/zsh-vi-mode
 
     zinit light zdharma-continuum/fast-syntax-highlighting
