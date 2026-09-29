@@ -35,5 +35,13 @@ keybind = super+ctrl+l=resize_split:right,20
 keybind = super+ctrl+k=resize_split:up,20
 keybind = super+ctrl+h=resize_split:left,20
 
-
 shell-integration-features = ssh-env,ssh-terminfo
+
+clipboard-write = allow
+clipboard-read = allow
+clipboard-paste-protection = false
+
+cursor-style = block
+cursor-style-blink = false
+
+command = tmux new-session -A -s main
