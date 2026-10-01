@@ -43,5 +43,3 @@ clipboard-paste-protection = false
 
 cursor-style = block
 cursor-style-blink = false
-
-command = tmux new-session -A -s main
