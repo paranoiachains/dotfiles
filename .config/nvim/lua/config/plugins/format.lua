@@ -40,6 +40,7 @@ require("conform").setup({
 		htmldjango = { "prettier" },
 		json = { "prettier" },
 		jsonc = { "prettier" },
+		swift = { "swift_format" },
 		["_"] = { "trim_whitespace" },
 	},
 })

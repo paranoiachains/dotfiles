@@ -28,12 +28,44 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.keymap.set("n", "grd", vim.lsp.buf.definition)
 
 -- telescope
-local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>fd", builtin.find_files)
-vim.keymap.set("n", "<leader>fg", builtin.live_grep)
-vim.keymap.set("n", "<leader>fb", builtin.buffers)
+local function telescope_picker(name, opts)
+	return function()
+		require("config.plugins.telescope").setup()
+		require("telescope.builtin")[name](opts)
+	end
+end
+
+vim.keymap.set("n", "<leader>fd", telescope_picker("find_files"))
+vim.keymap.set("n", "<leader>fg", telescope_picker("live_grep"))
+vim.keymap.set("n", "<leader>fb", telescope_picker("buffers"))
+
 vim.keymap.set("n", "<leader>fn", function()
-	builtin.find_files({
+	require("config.plugins.telescope").setup()
+	require("telescope.builtin").find_files({
 		cwd = vim.fn.stdpath("config"),
 	})
 end)
+
+-- terminal
+vim.keymap.set("n", "<C-t>", function()
+	local buf = vim.api.nvim_create_buf(false, true)
+
+	local win = vim.api.nvim_open_win(buf, true, {
+		split = "left",
+		win = 0,
+	})
+
+	vim.fn.jobstart(vim.o.shell, {
+		term = true,
+		on_exit = function()
+			if vim.api.nvim_buf_is_valid(buf) then
+				vim.schedule(function()
+					vim.api.nvim_buf_delete(buf, { force = true })
+				end)
+			end
+		end,
+	})
+
+	vim.bo[buf].buflisted = false
+	vim.cmd.startinsert()
+end, { desc = "Open terminal" })

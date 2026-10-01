@@ -17,11 +17,4 @@ vim.diagnostic.config({
 	virtual_text = false,
 })
 
-vim.lsp.enable("c")
-vim.lsp.enable("bash")
-vim.lsp.enable("rust")
-vim.lsp.enable("lua")
-vim.lsp.enable("python")
-vim.lsp.enable("html")
-vim.lsp.enable("css")
-vim.lsp.enable("js")
+vim.lsp.enable({ "c", "bash", "rust", "lua", "python", "html", "css", "js", "swift" })

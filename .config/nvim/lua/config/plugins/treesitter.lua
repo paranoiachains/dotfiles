@@ -1,22 +1,3 @@
-local ts = require("nvim-treesitter")
-
-ts.setup({
-	install_dir = vim.fn.stdpath("data") .. "/site",
-})
-
-ts.install({
-	"rust",
-	"lua",
-	"vim",
-	"vimdoc",
-	"markdown",
-	"markdown_inline",
-	"query",
-	"toml",
-	"yaml",
-	"json",
-})
-
 vim.filetype.add({
 	pattern = {
 		["${XDG_CONFIG_HOME}/zsh/.*"] = "zsh",
