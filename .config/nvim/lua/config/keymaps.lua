@@ -3,16 +3,16 @@ vim.keymap.set("n", "<Tab>", vim.cmd.bnext)
 vim.keymap.set("n", "<S-Tab>", vim.cmd.bprevious)
 vim.keymap.set("n", "<leader>q", vim.cmd.bdelete)
 
-vim.keymap.set("n", "<leader>t", vim.cmd.tabnew)
+vim.keymap.set("n", "<leader>tn", vim.cmd.tabnew)
+vim.keymap.set("n", "<leader>tc", vim.cmd.close)
+
+vim.keymap.set("t", "<C-\\>", "<C-\\><C-n>")
+vim.keymap.set("t", "<C-w>h", "<C-\\><C-n><C-w>h")
+vim.keymap.set("t", "<C-w>j", "<C-\\><C-n><C-w>j")
+vim.keymap.set("t", "<C-w>k", "<C-\\><C-n><C-w>k")
+vim.keymap.set("t", "<C-w>l", "<C-\\><C-n><C-w>l")
 
 vim.keymap.set({ "n", "v", "o" }, "$", "g_", { noremap = true })
-
-local opts = { noremap = true, silent = true }
-
-vim.keymap.set({ "n", "v", "i" }, "<Down>", "<Nop>", opts)
-vim.keymap.set({ "n", "v", "i" }, "<Up>", "<Nop>", opts)
-vim.keymap.set({ "n", "v", "i" }, "<Right>", "<Nop>", opts)
-vim.keymap.set({ "n", "v", "i" }, "<Left>", "<Nop>", opts)
 
 vim.keymap.set("n", "<Esc><Esc>", vim.cmd.nohlsearch, { silent = true })
 

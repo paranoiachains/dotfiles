@@ -146,3 +146,5 @@ export PATH="$HOME/.local/bin:$PATH"
 [[ -r "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 export PATH=$PATH:$HOME/.pdtm/go/bin
+
+export NO_PROXY=localhost,127.0.0.1
