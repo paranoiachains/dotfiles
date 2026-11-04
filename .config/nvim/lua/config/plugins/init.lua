@@ -16,7 +16,6 @@ vim.pack.add({
 	gh("nvim-telescope/telescope-fzf-native.nvim"),
 	gh("nvim-telescope/telescope-file-browser.nvim"),
 
-	gh("nvim-mini/mini.pairs"),
 	gh("nvim-mini/mini.surround"),
 }, {
 	confirm = false,

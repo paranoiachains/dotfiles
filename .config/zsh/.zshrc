@@ -104,16 +104,11 @@ function proxy {
         export HTTPS_PROXY="$proxy_url"
         export ALL_PROXY="$proxy_url"
 
-        export http_proxy="$HTTP_PROXY"
-        export https_proxy="$HTTPS_PROXY"
-        export all_proxy="$ALL_PROXY"
-
         echo "enabled $proxy_url proxy"
         ;;
 
     disable)
         unset HTTP_PROXY HTTPS_PROXY ALL_PROXY
-        unset http_proxy https_proxy all_proxy
 
         echo "disabled proxy"
         ;;
@@ -148,3 +143,10 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:$HOME/.pdtm/go/bin
 
 export NO_PROXY=localhost,127.0.0.1
+
+host_os=$(uname)
+if [[ "$host_os" == "Darwin" ]] && scutil --proxy | grep -E "Enable\s*:\s*1" >/dev/null 2>&1; then
+    proxy enable "$DEFAULT_PROXY" >/dev/null
+fi
+
+export UV_SYSTEM_CERTS=true
