@@ -6,6 +6,7 @@ add_newline = false
 
 format = """
 $container\
+$env_var \
 $directory \
 $git_branch\
 $character
@@ -25,6 +26,10 @@ vimcmd_symbol = "[<](white)"
 vimcmd_visual_symbol = "[<](white)"
 vimcmd_replace_symbol = "[<](white)"
 vimcmd_replace_one_symbol = "[<](white)"
+
+[env_var]
+variable = 'PHYSICAL_OR_VIRTUAL'
+format = '[$env_value](bold white)'
 
 [container]
 symbol = ""

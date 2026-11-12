@@ -149,4 +149,10 @@ if [[ "$host_os" == "Darwin" ]] && scutil --proxy | grep -E "Enable\s*:\s*1" >/d
     proxy enable "$DEFAULT_PROXY" >/dev/null
 fi
 
+if command -v systemd-detect-virt &>/dev/null; then
+    export PHYSICAL_OR_VIRTUAL="virt"
+else
+    export PHYSICAL_OR_VIRTUAL="phys"
+fi
+
 export UV_SYSTEM_CERTS=true
