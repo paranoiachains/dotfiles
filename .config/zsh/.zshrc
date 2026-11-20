@@ -130,17 +130,9 @@ function ssh {
 autoload -Uz compinit
 compinit
 
-export PATH="$HOME/go/bin:$PATH"
-
 export EDITOR="${EDITOR:-nvim}"
 export VISUAL="${VISUAL:-$EDITOR}"
 export PAGER="${PAGER:-less}"
-
-export PATH="$HOME/.local/bin:$PATH"
-
-[[ -r "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
-
-export PATH=$PATH:$HOME/.pdtm/go/bin
 
 export NO_PROXY=localhost,127.0.0.1
 

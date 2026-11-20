@@ -1,0 +1,4 @@
+export PATH="$HOME/.local/bin:$PATH"
+[[ -d /usr/local/go ]] && export PATH="$PATH:/usr/local/go/bin"
+[[ -d "$HOME/go" ]] && export PATH="$HOME/go/bin:$PATH"
+[[ -r "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
