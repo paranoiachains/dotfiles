@@ -7,6 +7,7 @@ add_newline = false
 format = """
 $container\
 $env_var \
+${custom.vm_hostname}\
 $directory \
 $git_branch\
 $character
@@ -60,3 +61,8 @@ not_executable_symbol = "noexec"
 not_found_symbol = "notfound"
 sigint_symbol = "sigint"
 signal_symbol = "sig"
+
+[custom.vm_hostname]
+command = "hostname -s"
+when = 'test "$PHYSICAL_OR_VIRTUAL" = "virt"'
+format = "[$output](bold white) "
