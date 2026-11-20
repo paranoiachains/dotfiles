@@ -7,7 +7,7 @@ add_newline = false
 format = """
 $container\
 $env_var \
-${custom.vm_hostname}\
+@${custom.vm_hostname}\
 $directory \
 $git_branch\
 $character
@@ -30,7 +30,7 @@ vimcmd_replace_one_symbol = "[<](white)"
 
 [env_var]
 variable = 'PHYSICAL_OR_VIRTUAL'
-format = '[$env_value](bold white)'
+format = '[$env_value](bold italic white)'
 
 [container]
 symbol = ""
@@ -65,4 +65,4 @@ signal_symbol = "sig"
 [custom.vm_hostname]
 command = "hostname -s"
 when = 'test "$PHYSICAL_OR_VIRTUAL" = "virt"'
-format = "[$output](bold white) "
+format = "[$output](bold purple) "
