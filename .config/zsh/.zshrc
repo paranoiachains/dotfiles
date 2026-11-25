@@ -86,6 +86,7 @@ function lg() {
 
 [[ -r "$XDG_CONFIG_HOME/zsh/volatile" ]] && source "$XDG_CONFIG_HOME/zsh/volatile"
 [[ -r "$XDG_CONFIG_HOME/zsh/aliases" ]] && source "$XDG_CONFIG_HOME/zsh/aliases"
+[[ -r "$XDG_CONFIG_HOME/zsh/exports" ]] && source "$XDG_CONFIG_HOME/zsh/exports"
 
 function proxy {
     local action="${1:-}"
