@@ -16,3 +16,4 @@ esac
 
 alias ls="$LS"
 alias lsa="$LS -lah"
+alias r="exec zsh"
